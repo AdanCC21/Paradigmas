@@ -1,10 +1,9 @@
-
-//Libreria Principal
+/*
+    g++ -Wall -I./include -L./lib main.c -o main -lraylib -lopengl32 -lgdi32 -lwinmm
+*/
+#include <stdio.h>
 #include "raylib.h"
-
-//Librerias Propias
-#include "./assets/Snake.h"
-
+#include "./src/menu.h"
 
 //------------------------------------------------------------------------------------
 // Program main entry point
@@ -31,13 +30,7 @@ int main(void)
 
         // Draw
         //----------------------------------------------------------------------------------
-        BeginDrawing();
-
-            ClearBackground(RAYWHITE);
-
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-
-        EndDrawing();
+        fondo1();
         //----------------------------------------------------------------------------------
     }
 
