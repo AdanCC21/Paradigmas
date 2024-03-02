@@ -18,6 +18,7 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "SnakeCs");
     
     // Variables--------------------------------------------------------------------------------------
+    Font font =LoadFont("assets/fonts/BerlinSansFBDemiBold.ttf");
 
     //------------------------------------------------------------------------------------------------
 
@@ -26,7 +27,7 @@ int main(void)
     while (!WindowShouldClose())
     {
         // Draw----------------------------------------------------------------------------------
-        fondo1();
+        fondo1(screenWidth,screenHeight,font);
         //---------------------------------------------------------------------------------------
     }
 
