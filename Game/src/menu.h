@@ -13,7 +13,7 @@ void fondo1 ()
 {
     //Variables
     struct fondoT f1;
-    f1.Fimage = LoadImage("src/assets/background/Nyejejeje.png");
+    f1.Fimage = LoadImage("assets/photos/Nyejejeje.png");
     f1.Ftexture = LoadTextureFromImage(f1.Fimage);
     f1.Fpos.x=0;
     f1.Fpos.y=0;
