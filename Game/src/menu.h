@@ -4,7 +4,7 @@
 
 /*  Prototipos  */
 void menuInit(int screenWidth,int screenHeight);
-void fondo1 (int screenWidth,int screenHeight,Font font);
+int fondo1 (int screenWidth,int screenHeight,Font font);
 
 /*  Estructuras */
 struct fondoT{
@@ -15,6 +15,7 @@ struct fondoT{
 
 enum Mescenas{
     MENU,
+    JUGAR,
     SALIR
 };
 
@@ -55,7 +56,7 @@ void menuInit(int screenWidth,int screenHeight)
 }
 
 
-void fondo1 (int screenWidth,int screenHeight,Font font)
+int fondo1 (int screenWidth,int screenHeight,Font font)
 {
     //Texto
     char exit[27]={"Adios"};
@@ -96,6 +97,7 @@ void fondo1 (int screenWidth,int screenHeight,Font font)
                     bandMENU=FALSE;
                     bandEXIT=FALSE;
                     bandGAME=TRUE;
+                    return 1;
                 }
             }
             if(CheckCollisionPointRec(Mouse,ExitRect))
@@ -105,6 +107,7 @@ void fondo1 (int screenWidth,int screenHeight,Font font)
                     bandMENU=FALSE;
                     bandEXIT=TRUE;
                     bandGAME=FALSE;
+                    return 0;
                 }
             }
 
