@@ -12,8 +12,6 @@
 #define TRUE 1
 #define FALSE 0
 
-double time=0.0;
-
 int main()
 {
     // Ventana Info--------------------------------------------------------------------------------------
@@ -38,9 +36,11 @@ int main()
     int bandTime=FALSE;
 
     //Snake
-    struct Nodo snake;
-    snake.pos.x=celsize*2;
-    snake.pos.y=celsize*(celycount/2);
+    struct Nodo *snake=(struct Nodo*)malloc(sizeof(struct Nodo));
+    snake->pos.x=celsize*2;
+    snake->pos.y=celsize*(celycount/2);
+    snake->next=NULL;
+    
     int SbandR=TRUE;
     int SbandL=FALSE;
     int SbandU=FALSE;
@@ -63,32 +63,32 @@ int main()
                     DrawLine(0, y, screenWidth, y, LIGHTGRAY);
                 }
             //-----------------------------------------------------
-            drawSnake(snake);
+            drawSnakeP(snake);
             drawFood(apple);
 
             if((bandTime=movSmooth(0.5))==TRUE)
             {
                 if(SbandR==TRUE)
                 {
-                    snake.pos=moveR(snake.pos);
+                    snake->pos=moveR(snake->pos);
                 }
                 else
                 {
                     if(SbandL==TRUE)
                     {
-                        snake.pos=moveL(snake.pos);
+                        snake->pos=moveL(snake->pos);
                     }
                     else
                     {
                         if(SbandU==TRUE)
                         {
-                            snake.pos=moveU(snake.pos);
+                            snake->pos=moveU(snake->pos);
                         }
                         else
                         {
                             if(SbandD==TRUE)
                             {
-                                snake.pos=moveD(snake.pos);
+                                snake->pos=moveD(snake->pos);
 
                             }
                         }
@@ -103,7 +103,7 @@ int main()
                 SbandU=FALSE;
                 SbandD=FALSE;
                 
-                snake.pos=moveR(snake.pos);
+                snake->pos=moveR(snake->pos);
             }
             if(IsKeyPressed(KEY_A))
             {
@@ -112,7 +112,7 @@ int main()
                 SbandU=FALSE;
                 SbandD=FALSE;
 
-                snake.pos=moveL(snake.pos);
+                snake->pos=moveL(snake->pos);
             }
             if(IsKeyPressed(KEY_S))
             {
@@ -121,7 +121,7 @@ int main()
                 SbandR=FALSE;
                 SbandU=FALSE;
 
-                snake.pos=moveD(snake.pos);
+                snake->pos=moveD(snake->pos);
             }
             if(IsKeyPressed(KEY_W))
             {
@@ -129,12 +129,13 @@ int main()
                 SbandL=FALSE;
                 SbandR=FALSE;
                 SbandD=FALSE;
-                snake.pos=moveU(snake.pos);
+                snake->pos=moveU(snake->pos);
             }
 
             if(IsKeyPressed(KEY_SPACE))
             {
                 apple.Fpos=spawnfood(celxcount,celycount);
+                add(&snake);
             }
         }
         EndDrawing();

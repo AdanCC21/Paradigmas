@@ -6,12 +6,53 @@
 #define FALSE 0
 
 struct Nodo{
+    int data;
     Vector2 pos;
     struct Nodo*next;
 };
 
 
+struct Nodo* crear(Vector2 newpos);
+void add (struct Nodo **head);
+void drawSnakeP(struct Nodo *snake);
+
+struct Nodo* crear(Vector2 newpos)
+{
+    struct Nodo* newNodo = (struct Nodo*)malloc(sizeof(struct Nodo));
+    newNodo->pos.x= newpos.x-50;
+    newNodo->pos.y= newpos.y-50;
+    newNodo->next=NULL;
+    return newNodo;
+}
+
+void add (struct Nodo **head)
+{
+    Vector2 newpos;
+    newpos.x=(*head)->pos.x-50;
+    newpos.y=(*head)->pos.y-50;
+    struct Nodo*newNodo=crear(newpos);
+    newNodo->data=15+(*head)->data;
+    (*head)->next=newNodo;
+}
+
+void drawSnakeP(struct Nodo *snake)
+{
+    Vector2 tempPos;
+    
+    struct Nodo *temp=snake;
+    while(temp!=NULL)
+    {
+        tempPos.x=temp->pos.x;
+        tempPos.y=temp->pos.y;
+        
+        DrawRectangle(tempPos.x,tempPos.y,50,50,WHITE);
+        printf("%d",temp->data);
+        temp=temp->next;
+    }
+}
+
 //Movimientos---------------------------------------------------------------------
+double time=0.0;
 //Mover Derecha
 Vector2 moveR(Vector2 pos)
 {
@@ -44,12 +85,6 @@ Vector2 moveD(Vector2 pos)
     temp.y=pos.y + 50;
     return temp;
 }
-//---------------------------------------------------------------------------------
-
-void drawSnake(struct Nodo snake)
-{
-    DrawRectangle(snake.pos.x,snake.pos.y,50,50,WHITE);
-}
 
 int movSmooth (double tiempoEstimado)
 {
@@ -61,18 +96,4 @@ int movSmooth (double tiempoEstimado)
     }
     return FALSE;
 }
-
-
-struct Nodo* crear(Vector2 newpos)
-{
-    struct Nodo* newNodo = (struct Nodo*)malloc(sizeof(struct Nodo));
-    newNodo->pos.x= newpos.x;
-    newNodo->pos.y= newpos.y;
-    return newNodo;
-}
-
-void add (struct Nodo **head,Vector2 newpos)
-{
-    struct Nodo*newNodo=crear(newpos);
-
-}
+//---------------------------------------------------------------------------------
