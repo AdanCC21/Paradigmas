@@ -6,7 +6,6 @@
 #define FALSE 0
 
 struct Nodo{
-    int data;
     Vector2 pos;
     struct Nodo*next;
 };
@@ -31,7 +30,7 @@ void add (struct Nodo **head)
     newpos.x=(*head)->pos.x-50;
     newpos.y=(*head)->pos.y-50;
     struct Nodo*newNodo=crear(newpos);
-    newNodo->data=15+(*head)->data;
+    
     (*head)->next=newNodo;
 }
 
@@ -46,7 +45,7 @@ void drawSnakeP(struct Nodo *snake)
         tempPos.y=temp->pos.y;
         
         DrawRectangle(tempPos.x,tempPos.y,50,50,WHITE);
-        printf("%d",temp->data);
+        
         temp=temp->next;
     }
 }
