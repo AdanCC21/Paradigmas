@@ -186,7 +186,7 @@ int main()
                             }
                             if(IsKeyPressed(KEY_SPACE))
                             {
-                                apple.Fpos=spawnfood(&snake,celxcount,celycount);
+                                // apple.Fpos=spawnfood(&snake,celxcount,celycount);
                                 add(&snake);
                             }
                         }

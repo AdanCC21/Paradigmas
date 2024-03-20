@@ -31,11 +31,21 @@ Vector2 spawnfood(struct Nodo **head,int gridx,int gridy)
         temp.y=temp.y*50;
 
         struct Nodo *body=*head;//Snake Body
-        while(body!=NULL)
+        while(body->next!=NULL)
         {
-            if(temp.x==body->pos.x && temp.x==body->pos.y)
+            if(temp.x==body->pos.x)
             {
-                clean=false;
+                if(temp.y==body->pos.y)
+                {
+                    clean=false;
+                }
+            }
+            if(temp.y==body->pos.y)
+            {
+                if(temp.x==body->pos.x)
+                {
+                    clean=false;
+                }
             }
             body=body->next;
         }
