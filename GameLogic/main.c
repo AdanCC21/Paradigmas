@@ -49,7 +49,7 @@ int main()
     int SbandD=FALSE;
 
     //banderas de inicio
-    int menu=0;
+    int menu = 0;
     bool game = true;
     bool over = false;
     
@@ -59,10 +59,9 @@ int main()
     {
         BeginDrawing();
         {
-            while(menu==0)
+            if(menu==0)
             {
                 menu=drawMenu();
-                
             }
             
             if(menu==1)

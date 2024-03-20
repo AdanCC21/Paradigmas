@@ -70,32 +70,36 @@ void initImage(int screenWidth, int screenHeight)
 
 int drawMenu()
 {
-    int op=3;
+    int op=0;
     Vector2 mouse ={0.0f,0.0f};
-
-    DrawTextureEx(fondo.text,fondo.pos,0.0f,1.0f,WHITE);//Fondo
-    DrawTextureEx(title.text,title.pos,0.0f,0.5f,WHITE);//Titulo
-
-    Rectangle iniciarRect = {iniciar.pos.x,iniciar.pos.y,iniciar.Width,iniciar.Height};//Rectangulo base
-    DrawTextureEx(iniciar.text,iniciar.pos,0.0f,1.0f,WHITE);//Boton iniciar
-    
-    Rectangle salirRect ={salir.pos.x,salir.pos.y,salir.Width,salir.Height};//Rectangulo base
-    DrawTextureEx(salir.text,salir.pos,0.0f,1.0f,WHITE);//Boton Salir
-
-    mouse=GetMousePosition();
-    if(CheckCollisionPointRec(mouse,iniciarRect))
+    while(op==0)
     {
-        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-        {
-            op=1;
-        }
-    }
-    if(CheckCollisionPointRec(mouse,salirRect))
-    {
-        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
-        {
-            op=2;
-        }
+        BeginDrawing();
+            DrawTextureEx(fondo.text,fondo.pos,0.0f,1.0f,WHITE);//Fondo
+            DrawTextureEx(title.text,title.pos,0.0f,0.5f,WHITE);//Titulo
+
+            Rectangle iniciarRect = {iniciar.pos.x,iniciar.pos.y,iniciar.Width,iniciar.Height};//Rectangulo base
+            DrawTextureEx(iniciar.text,iniciar.pos,0.0f,1.0f,WHITE);//Boton iniciar
+            
+            Rectangle salirRect ={salir.pos.x,salir.pos.y,salir.Width,salir.Height};//Rectangulo base
+            DrawTextureEx(salir.text,salir.pos,0.0f,1.0f,WHITE);//Boton Salir
+
+            mouse=GetMousePosition();
+            if(CheckCollisionPointRec(mouse,iniciarRect))
+            {
+                if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+                {
+                    op=1;
+                }
+            }
+            if(CheckCollisionPointRec(mouse,salirRect))
+            {
+                if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+                {
+                    op=2;
+                }
+            }
+        EndDrawing();
     }
     return op;
 }
