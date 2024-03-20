@@ -201,12 +201,12 @@ int main()
                             }
                         }
                         
-                        //Colisiones
-                        // if((bandColi=colision(&snake,screenWidth,screenHeight))==true)
-                        // {
-                        //     game=false;
-                        //     menu=0;
-                        // }
+                        // Colisiones
+                        if((bandColi=colision(&snake,screenWidth,screenHeight))==true)
+                        {
+                            game=false;
+                            menu=0;
+                        }
                         
                         
 
