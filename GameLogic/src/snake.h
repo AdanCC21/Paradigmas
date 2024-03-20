@@ -41,10 +41,7 @@ void drawSnakeP(struct Nodo *snake)
     }
 }
 
-void colision()
-{
-    
-}
+
 
 struct Nodo* crear()
 {

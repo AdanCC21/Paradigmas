@@ -66,13 +66,23 @@ int main()
             
             if(menu==1)
             {
+                //Reinicio
                 game=true;
+                snake->pos.x=celsize*2;
+                snake->pos.y=celsize*(celycount/2);
+                snake->next=NULL;
+
+                int SbandR=TRUE;
+                int SbandL=FALSE;
+                int SbandU=FALSE;
+                int SbandD=FALSE;
+                
                 do
                 {
                     BeginDrawing();
                     {
 
-                        ClearBackground(ORANGE);
+                        DrawTextureEx(fondo.text,fondo.pos,0.0f,1.0f,WHITE);
                         //Grid------------------------------------------------
                             for (int x = 0; x < screenWidth; x += celsize) 
                             {
@@ -96,13 +106,23 @@ int main()
                             }
                         }
                         
+                        if(snake->pos.x<=0.0|| snake->pos.x>=screenWidth)
+                        {
+                            game=false;
+                            menu=0;
+                        }
+                        if(snake->pos.y<=0.0 || snake->pos.y>=screenHeight)
+                        {
+                            game=false;
+                            menu=0;
+                        }
+                        
                         //Movimiento
-                        if((bandTime=movSmooth(0.5))==TRUE)
+                        if((bandTime=movSmooth(0.3))==TRUE)
                         {
                             if(SbandR==TRUE)
                             {
                                 moveHeadR(&snake);
-                                // genMoveR(&snake);
                             }
                             else
                             {
@@ -114,7 +134,6 @@ int main()
                                 {
                                     if(SbandU==TRUE)
                                     {
-                                        // genMoveU(&snake);
                                         moveHeadU(&snake);
                                     }
                                     else
@@ -128,46 +147,60 @@ int main()
                             }
                         }
 
-                        //debugeo
+                        
                         {
                             if(IsKeyPressed(KEY_D))
                             {
-                                SbandR=TRUE;
-                                SbandL=FALSE;
-                                SbandU=FALSE;
-                                SbandD=FALSE;
-                                
-                                moveHeadR(&snake);
-                                // genMoveR(&snake);
+                                if(SbandL==TRUE)
+                                {}
+                                else
+                                {
+                                    SbandR=TRUE;
+                                    SbandL=FALSE;
+                                    SbandU=FALSE;
+                                    SbandD=FALSE;
+                                    moveHeadR(&snake);
+                                }
                             }
                             if(IsKeyPressed(KEY_A))
                             {
-                                SbandL=TRUE;
-                                SbandR=FALSE;
-                                SbandU=FALSE;
-                                SbandD=FALSE;
-
-                                moveHeadL(&snake);
+                                if(SbandR==TRUE)
+                                {}
+                                else
+                                {
+                                    SbandL=TRUE;
+                                    SbandR=FALSE;
+                                    SbandU=FALSE;
+                                    SbandD=FALSE;
+                                    moveHeadL(&snake);
+                                }
                             }
                             if(IsKeyPressed(KEY_S))
                             {
-                                SbandD=TRUE;
-                                SbandL=FALSE;
-                                SbandR=FALSE;
-                                SbandU=FALSE;
-
-                                moveHeadD(&snake);
+                                if(SbandU==TRUE)
+                                {}
+                                else
+                                {
+                                    SbandD=TRUE;
+                                    SbandL=FALSE;
+                                    SbandR=FALSE;
+                                    SbandU=FALSE;
+                                    moveHeadD(&snake);
+                                }
                             }
                             if(IsKeyPressed(KEY_W))
                             {
-                                SbandU=TRUE;
-                                SbandL=FALSE;
-                                SbandR=FALSE;
-                                SbandD=FALSE;
-                                // genMoveU(&snake);
-                                moveHeadU(&snake);
+                                if(SbandD==TRUE)
+                                {}
+                                else
+                                {
+                                    SbandU=TRUE;
+                                    SbandL=FALSE;
+                                    SbandR=FALSE;
+                                    SbandD=FALSE;
+                                    moveHeadU(&snake);
+                                }
                             }
-
                             if(IsKeyPressed(KEY_SPACE))
                             {
                                 apple.Fpos=spawnfood(celxcount,celycount);
@@ -175,13 +208,15 @@ int main()
                             }
                         }
 
-                        snake->lastpos.x=snake->pos.x;
-                        snake->lastpos.y=snake->pos.y;
+                        //Salida
                         if(IsKeyPressed(KEY_ESCAPE))
                         {
                             game=false;
                             menu=0;
                         }
+
+                        snake->lastpos.x=snake->pos.x;
+                        snake->lastpos.y=snake->pos.y;
                     }   
                     EndDrawing();
                 }while(game==true);

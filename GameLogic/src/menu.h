@@ -12,6 +12,7 @@ struct img{
 
 struct img fondo;
 struct img title;
+struct img over;
 struct img iniciar;
 struct img salir;
 
@@ -30,6 +31,17 @@ void initImage(int screenWidth, int screenHeight)
     fondo.Height=fondo.img.height;
     fondo.Width=fondo.img.width;
     UnloadImage(fondo.img);
+    
+    //GameOver---------------------------------------------------------------------------------------------------------------
+    over.img=LoadImage("assets/photos/Backgrounds/GameOverChafa.png");
+    over.text=LoadTextureFromImage(over.img);
+    
+    over.pos.x=0.0;
+    over.pos.y=0.0;
+    
+    over.Height=over.img.height;
+    over.Width=over.img.width;
+    UnloadImage(over.img);
     
     //Titulo---------------------------------------------------------------------------------------------------------------
     title.img=LoadImage("assets/photos/Snakecs.png");
@@ -104,14 +116,13 @@ int drawMenu()
     return op;
 }
 
-int drawMenu2()
+int drawOver()
 {
     int op=3;
     Vector2 mouse ={0.0f,0.0f};
 
-    DrawTextureEx(fondo.text,fondo.pos,0.0f,1.0f,WHITE);//Fondo
-    DrawTextureEx(title.text,title.pos,0.0f,0.5f,WHITE);//Titulo
-
+    DrawTextureEx(over.text,over.pos,0.0f,1.0f,WHITE);//Fondo
+    
     return op;
 }
 
