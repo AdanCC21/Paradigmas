@@ -6,11 +6,41 @@
 #define FALSE 0
 
 struct Nodo{
+<<<<<<< HEAD
     Vector2 lastpos;
+=======
+>>>>>>> d22d517d0c86b53e0a8f87634c707b49b9305231
     Vector2 pos;
     struct Nodo*next;
 };
 
+<<<<<<< HEAD
+=======
+
+struct Nodo* crear(Vector2 newpos);
+void add (struct Nodo **head);
+void drawSnakeP(struct Nodo *snake);
+
+struct Nodo* crear(Vector2 newpos)
+{
+    struct Nodo* newNodo = (struct Nodo*)malloc(sizeof(struct Nodo));
+    newNodo->pos.x= newpos.x-50;
+    newNodo->pos.y= newpos.y-50;
+    newNodo->next=NULL;
+    return newNodo;
+}
+
+void add (struct Nodo **head)
+{
+    Vector2 newpos;
+    newpos.x=(*head)->pos.x-50;
+    newpos.y=(*head)->pos.y-50;
+    struct Nodo*newNodo=crear(newpos);
+    
+    (*head)->next=newNodo;
+}
+
+>>>>>>> d22d517d0c86b53e0a8f87634c707b49b9305231
 void drawSnakeP(struct Nodo *snake)
 {
     Vector2 tempPos;
@@ -22,7 +52,11 @@ void drawSnakeP(struct Nodo *snake)
         tempPos.y=temp->pos.y;
         
         DrawRectangle(tempPos.x,tempPos.y,50,50,WHITE);
+<<<<<<< HEAD
         // printf("%d",temp->data);
+=======
+        
+>>>>>>> d22d517d0c86b53e0a8f87634c707b49b9305231
         temp=temp->next;
     }
 }
