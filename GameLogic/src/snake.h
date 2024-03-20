@@ -41,7 +41,33 @@ void drawSnakeP(struct Nodo *snake)
     }
 }
 
+bool colision (struct Nodo **head,int screenWidth, int screenHeight)
+{
+    struct Nodo *temp=*head;
+    temp=temp->next;
+    while(temp!=NULL)
+    {
+        if((*head)->pos.x==temp->pos.x)
+        {   
+            if((*head)->pos.y==temp->pos.y)
+            {
+                return true;
+            }
+        }
+        temp=temp->next;
+    }
 
+    if((*head)->pos.x<0.0|| (*head)->pos.x>=screenWidth)
+    {
+        return true;
+    }
+    if((*head)->pos.y<0.0 || (*head)->pos.y>=screenHeight)
+    {
+        return true;
+    }
+
+    return false;
+}
 
 struct Nodo* crear()
 {
@@ -62,9 +88,9 @@ void add (struct Nodo **head)
     {
         temp=temp->next;
     }
-    temp->next=newNodo;
     newNodo->pos.x=temp->lastpos.x;
     newNodo->pos.y=temp->lastpos.y;
+    temp->next=newNodo;
 }
 
 //Movimientos---------------------------------------------------------------------

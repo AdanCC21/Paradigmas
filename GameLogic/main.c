@@ -30,9 +30,6 @@ int main()
     int celxcount=screenWidth/50;//Grid cantidad x
     int celycount=screenHeight/50;//Grid cantidad y
 
-    struct Manzana apple;
-    apple.Fpos=spawnfood(celxcount,celycount);
-
     int bandTime=FALSE;
 
     //Snake
@@ -48,10 +45,16 @@ int main()
     int SbandU=FALSE;
     int SbandD=FALSE;
 
+    //Manzana
+    struct Manzana apple;
+    apple.Fpos=spawnfood(&snake,celxcount,celycount);
+
     //banderas de inicio
     int menu = 0;
     bool game = true;
     bool over = false;
+
+    bool bandColi =false;
     
 
     // Main game loop------------------------------------------------------------------------------------
@@ -96,27 +99,8 @@ int main()
                         drawSnakeP(snake);
                         drawFood(apple);
 
-                        //Manzana
-                        if(snake->pos.x==apple.Fpos.x)
-                        {
-                            if(snake->pos.y==apple.Fpos.y)
-                            {
-                                apple.Fpos=spawnfood(celxcount,celycount);
-                                add(&snake);
-                            }
-                        }
                         
-                        if(snake->pos.x<=0.0|| snake->pos.x>=screenWidth)
-                        {
-                            game=false;
-                            menu=0;
-                        }
-                        if(snake->pos.y<=0.0 || snake->pos.y>=screenHeight)
-                        {
-                            game=false;
-                            menu=0;
-                        }
-                        
+
                         //Movimiento
                         if((bandTime=movSmooth(0.3))==TRUE)
                         {
@@ -147,7 +131,6 @@ int main()
                             }
                         }
 
-                        
                         {
                             if(IsKeyPressed(KEY_D))
                             {
@@ -203,10 +186,30 @@ int main()
                             }
                             if(IsKeyPressed(KEY_SPACE))
                             {
-                                apple.Fpos=spawnfood(celxcount,celycount);
+                                apple.Fpos=spawnfood(&snake,celxcount,celycount);
                                 add(&snake);
                             }
                         }
+
+                        //Manzana
+                        if(snake->pos.x==apple.Fpos.x)
+                        {
+                            if(snake->pos.y==apple.Fpos.y)
+                            {
+                                apple.Fpos=spawnfood(&snake,celxcount,celycount);
+                                add(&snake);
+                            }
+                        }
+                        
+                        //Colisiones
+                        // if((bandColi=colision(&snake,screenWidth,screenHeight))==true)
+                        // {
+                        //     game=false;
+                        //     menu=0;
+                        // }
+                        
+                        
+
 
                         //Salida
                         if(IsKeyPressed(KEY_ESCAPE))

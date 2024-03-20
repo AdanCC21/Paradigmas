@@ -9,7 +9,7 @@ struct Manzana
 };
 
 //Prototype-----
-Vector2 spawnfood(int gridx,int gridy);
+Vector2 spawnfood(struct Nodo **head,int gridx,int gridy);
 void drawFood(struct Manzana apple);
 
 //Funciones
@@ -18,12 +18,28 @@ void drawFood(struct Manzana apple)
     DrawRectangle(apple.Fpos.x,apple.Fpos.y,50,50,BLACK);
 }
 
-Vector2 spawnfood(int gridx,int gridy)
+Vector2 spawnfood(struct Nodo **head,int gridx,int gridy)
 {
     Vector2 temp;
-    temp.x =GetRandomValue(0,(gridx -1));
-    temp.y= GetRandomValue(0,(gridy -1));
-    temp.x=temp.x*50;
-    temp.y=temp.y*50;
+    bool clean=true;
+    do
+    {
+        clean=true;
+        temp.x =GetRandomValue(0,(gridx -1));
+        temp.y= GetRandomValue(0,(gridy -1));
+        temp.x=temp.x*50;
+        temp.y=temp.y*50;
+
+        struct Nodo *body=*head;//Snake Body
+        while(body!=NULL)
+        {
+            if(temp.x==body->pos.x && temp.x==body->pos.y)
+            {
+                clean=false;
+            }
+            body=body->next;
+        }
+    } while (clean==false);
+    
     return temp;
 }
