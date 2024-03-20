@@ -10,7 +10,21 @@ struct Nodo{
     Vector2 pos;
     struct Nodo*next;
 };
+//Prototipos---------------------------------------------------------------
+void drawSnakeP(struct Nodo *snake);//Dibujar Serpiente
 
+struct Nodo* crear();//Crear Nodo
+void add (struct Nodo **head);//Agregar Nodo a la serpiente
+
+//Movimientos
+void moveHeadR(struct Nodo **head);//Mover Derecha/Right
+void moveHeadL(struct Nodo **head);//Mover Arriba/Up
+void moveHeadD(struct Nodo **head);//Mover Abajo/Down
+void moveHeadU(struct Nodo **head);//Mover Izquierda/Left
+
+int movSmooth (double tiempoEstimado);//Movimiento cada cierto tiempo
+
+//Funciones---------------------------------------------------------------
 void drawSnakeP(struct Nodo *snake)
 {
     Vector2 tempPos;

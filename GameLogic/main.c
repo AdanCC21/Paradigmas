@@ -6,11 +6,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "raylib.h"
-#include "./src/logic.h"
+#include "./src/menu.h"
 #include "./src/snake.h"
+#include "./src/apple.h"
 
 #define TRUE 1
 #define FALSE 0
+#define CELSIZE 50//Luego lo modifico-------------------------------------
 
 
 int main()
@@ -22,7 +24,7 @@ int main()
 
     // Inits--------------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "SnakeCs");
-
+    initImage(screenWidth, screenHeight);
     // Variables----------------------------------------------------------------------------------------s
     int celsize= 50;//Grid tamaño
     int celxcount=screenWidth/50;//Grid cantidad x
@@ -45,6 +47,11 @@ int main()
     int SbandL=FALSE;
     int SbandU=FALSE;
     int SbandD=FALSE;
+
+    //banderas de inicio
+    int menu=0;
+    bool game = true;
+    bool over = false;
     
 
     // Main game loop------------------------------------------------------------------------------------
@@ -52,96 +59,134 @@ int main()
     {
         BeginDrawing();
         {
-            ClearBackground(ORANGE);
-            //Grid------------------------------------------------
-                for (int x = 0; x < screenWidth; x += celsize) 
-                {
-                    DrawLine(x, 0, x, screenHeight, LIGHTGRAY);
-                }
-                for (int y = 0; y < screenHeight; y += celsize) 
-                {
-                    DrawLine(0, y, screenWidth, y, LIGHTGRAY);
-                }
-            //-----------------------------------------------------
-            drawSnakeP(snake);
-            drawFood(apple);
-
-            if((bandTime=movSmooth(0.5))==TRUE)
+            while(menu==0)
             {
-                if(SbandR==TRUE)
-                {
-                    moveHeadR(&snake);
-                    // genMoveR(&snake);
-                }
-                else
-                {
-                    if(SbandL==TRUE)
-                    {
-                        moveHeadL(&snake);
-                    }
-                    else
-                    {
-                        if(SbandU==TRUE)
+                menu=drawMenu();
+                
+            }
+            
+            if(menu==1)
+            {
+                do{
+
+                    ClearBackground(ORANGE);
+                    //Grid------------------------------------------------
+                        for (int x = 0; x < screenWidth; x += celsize) 
                         {
-                            // genMoveU(&snake);
-                            moveHeadU(&snake);
+                            DrawLine(x, 0, x, screenHeight, LIGHTGRAY);
                         }
-                        else
+                        for (int y = 0; y < screenHeight; y += celsize) 
                         {
-                            if(SbandD==TRUE)
+                            DrawLine(0, y, screenWidth, y, LIGHTGRAY);
+                        }
+                    //-----------------------------------------------------
+                    drawSnakeP(snake);
+                    drawFood(apple);
+
+                    {
+                        //Manzana
+                        if(snake->pos.x==apple.Fpos.x)
+                        {
+                            if(snake->pos.y==apple.Fpos.y)
                             {
-                                moveHeadD(&snake);
+                                apple.Fpos=spawnfood(celxcount,celycount);
+                                add(&snake);
                             }
                         }
+                        
+                        //Movimiento
+                        if((bandTime=movSmooth(0.5))==TRUE)
+                        {
+                            if(SbandR==TRUE)
+                            {
+                                moveHeadR(&snake);
+                                // genMoveR(&snake);
+                            }
+                            else
+                            {
+                                if(SbandL==TRUE)
+                                {
+                                    moveHeadL(&snake);
+                                }
+                                else
+                                {
+                                    if(SbandU==TRUE)
+                                    {
+                                        // genMoveU(&snake);
+                                        moveHeadU(&snake);
+                                    }
+                                    else
+                                    {
+                                        if(SbandD==TRUE)
+                                        {
+                                            moveHeadD(&snake);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        //debugeo
+                        {
+                            if(IsKeyPressed(KEY_D))
+                            {
+                                SbandR=TRUE;
+                                SbandL=FALSE;
+                                SbandU=FALSE;
+                                SbandD=FALSE;
+                                
+                                moveHeadR(&snake);
+                                // genMoveR(&snake);
+                            }
+                            if(IsKeyPressed(KEY_A))
+                            {
+                                SbandL=TRUE;
+                                SbandR=FALSE;
+                                SbandU=FALSE;
+                                SbandD=FALSE;
+
+                                moveHeadL(&snake);
+                            }
+                            if(IsKeyPressed(KEY_S))
+                            {
+                                SbandD=TRUE;
+                                SbandL=FALSE;
+                                SbandR=FALSE;
+                                SbandU=FALSE;
+
+                                moveHeadD(&snake);
+                            }
+                            if(IsKeyPressed(KEY_W))
+                            {
+                                SbandU=TRUE;
+                                SbandL=FALSE;
+                                SbandR=FALSE;
+                                SbandD=FALSE;
+                                // genMoveU(&snake);
+                                moveHeadU(&snake);
+                            }
+
+                            if(IsKeyPressed(KEY_SPACE))
+                            {
+                                apple.Fpos=spawnfood(celxcount,celycount);
+                                add(&snake);
+                            }
+                        }
+
+                        snake->lastpos.x=snake->pos.x;
+                        snake->lastpos.y=snake->pos.y;
                     }
+                }while(game==true);
+            }
+            else
+            {
+                if(menu==2)
+                {
+                    printf("\nADIOOOOS\n");
+                    break;
                 }
             }
-
-            if(IsKeyPressed(KEY_D))
-            {
-                SbandR=TRUE;
-                SbandL=FALSE;
-                SbandU=FALSE;
-                SbandD=FALSE;
-                
-                moveHeadR(&snake);
-                // genMoveR(&snake);
-            }
-            if(IsKeyPressed(KEY_A))
-            {
-                SbandL=TRUE;
-                SbandR=FALSE;
-                SbandU=FALSE;
-                SbandD=FALSE;
-
-                moveHeadL(&snake);
-            }
-            if(IsKeyPressed(KEY_S))
-            {
-                SbandD=TRUE;
-                SbandL=FALSE;
-                SbandR=FALSE;
-                SbandU=FALSE;
-
-                moveHeadD(&snake);
-            }
-            if(IsKeyPressed(KEY_W))
-            {
-                SbandU=TRUE;
-                SbandL=FALSE;
-                SbandR=FALSE;
-                SbandD=FALSE;
-                // genMoveU(&snake);
-                moveHeadU(&snake);
-            }
-
-            if(IsKeyPressed(KEY_SPACE))
-            {
-                apple.Fpos=spawnfood(celxcount,celycount);
-                add(&snake);
-            }
-            snake->lastpos.x=snake->pos.x;
-            snake->lastpos.y=snake->pos.y;
+            
         }
         EndDrawing();
     }
