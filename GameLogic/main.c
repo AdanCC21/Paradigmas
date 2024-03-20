@@ -66,23 +66,26 @@ int main()
             
             if(menu==1)
             {
-                do{
-
-                    ClearBackground(ORANGE);
-                    //Grid------------------------------------------------
-                        for (int x = 0; x < screenWidth; x += celsize) 
-                        {
-                            DrawLine(x, 0, x, screenHeight, LIGHTGRAY);
-                        }
-                        for (int y = 0; y < screenHeight; y += celsize) 
-                        {
-                            DrawLine(0, y, screenWidth, y, LIGHTGRAY);
-                        }
-                    //-----------------------------------------------------
-                    drawSnakeP(snake);
-                    drawFood(apple);
-
+                game=true;
+                do
+                {
+                    BeginDrawing();
                     {
+
+                        ClearBackground(ORANGE);
+                        //Grid------------------------------------------------
+                            for (int x = 0; x < screenWidth; x += celsize) 
+                            {
+                                DrawLine(x, 0, x, screenHeight, LIGHTGRAY);
+                            }
+                            for (int y = 0; y < screenHeight; y += celsize) 
+                            {
+                                DrawLine(0, y, screenWidth, y, LIGHTGRAY);
+                            }
+                        //-----------------------------------------------------
+                        drawSnakeP(snake);
+                        drawFood(apple);
+
                         //Manzana
                         if(snake->pos.x==apple.Fpos.x)
                         {
@@ -174,7 +177,13 @@ int main()
 
                         snake->lastpos.x=snake->pos.x;
                         snake->lastpos.y=snake->pos.y;
-                    }
+                        if(IsKeyPressed(KEY_ESCAPE))
+                        {
+                            game=false;
+                            menu=0;
+                        }
+                    }   
+                    EndDrawing();
                 }while(game==true);
             }
             else
