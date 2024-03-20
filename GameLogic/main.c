@@ -12,6 +12,7 @@
 #define TRUE 1
 #define FALSE 0
 
+
 int main()
 {
     // Ventana Info--------------------------------------------------------------------------------------
@@ -22,10 +23,7 @@ int main()
     // Inits--------------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "SnakeCs");
 
-
     // Variables----------------------------------------------------------------------------------------s
-    Font font = LoadFont("assets/fonts/BerlinSansFBDemiBold.ttf");
-    
     int celsize= 50;//Grid tamaño
     int celxcount=screenWidth/50;//Grid cantidad x
     int celycount=screenHeight/50;//Grid cantidad y
@@ -39,8 +37,10 @@ int main()
     struct Nodo *snake=(struct Nodo*)malloc(sizeof(struct Nodo));
     snake->pos.x=celsize*2;
     snake->pos.y=celsize*(celycount/2);
+    
     snake->next=NULL;
     
+    //Banderas de direccion
     int SbandR=TRUE;
     int SbandL=FALSE;
     int SbandU=FALSE;
@@ -70,26 +70,27 @@ int main()
             {
                 if(SbandR==TRUE)
                 {
-                    snake->pos=moveR(snake->pos);
+                    moveHeadR(&snake);
+                    // genMoveR(&snake);
                 }
                 else
                 {
                     if(SbandL==TRUE)
                     {
-                        snake->pos=moveL(snake->pos);
+                        moveHeadL(&snake);
                     }
                     else
                     {
                         if(SbandU==TRUE)
                         {
-                            snake->pos=moveU(snake->pos);
+                            // genMoveU(&snake);
+                            moveHeadU(&snake);
                         }
                         else
                         {
                             if(SbandD==TRUE)
                             {
-                                snake->pos=moveD(snake->pos);
-
+                                moveHeadD(&snake);
                             }
                         }
                     }
@@ -103,7 +104,8 @@ int main()
                 SbandU=FALSE;
                 SbandD=FALSE;
                 
-                snake->pos=moveR(snake->pos);
+                moveHeadR(&snake);
+                // genMoveR(&snake);
             }
             if(IsKeyPressed(KEY_A))
             {
@@ -112,7 +114,7 @@ int main()
                 SbandU=FALSE;
                 SbandD=FALSE;
 
-                snake->pos=moveL(snake->pos);
+                moveHeadL(&snake);
             }
             if(IsKeyPressed(KEY_S))
             {
@@ -121,7 +123,7 @@ int main()
                 SbandR=FALSE;
                 SbandU=FALSE;
 
-                snake->pos=moveD(snake->pos);
+                moveHeadD(&snake);
             }
             if(IsKeyPressed(KEY_W))
             {
@@ -129,7 +131,8 @@ int main()
                 SbandL=FALSE;
                 SbandR=FALSE;
                 SbandD=FALSE;
-                snake->pos=moveU(snake->pos);
+                // genMoveU(&snake);
+                moveHeadU(&snake);
             }
 
             if(IsKeyPressed(KEY_SPACE))
@@ -137,6 +140,8 @@ int main()
                 apple.Fpos=spawnfood(celxcount,celycount);
                 add(&snake);
             }
+            snake->lastpos.x=snake->pos.x;
+            snake->lastpos.y=snake->pos.y;
         }
         EndDrawing();
     }
