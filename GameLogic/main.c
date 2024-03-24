@@ -77,6 +77,7 @@ int main()
     struct img fondoG=initGameBackground();//Fondo del juego
     struct img fondoM=initMenu();
     struct img fondoO=initGameOver();
+    struct img fondoW=initWinner();
     //Botones
     struct img title=initTitleButton(screenWidth);//Titulo
     struct img start=initStartButton(screenWidth);//Boton de iniciar
@@ -87,6 +88,10 @@ int main()
     float menuTime=0.0f;
     Music gameMusic = LoadMusicStream("assets/music/Stage1.mp3");
     float gameTime=0.0f;
+    Music overMusic = LoadMusicStream("assets/music/ChavoSad.mp3");
+    float overTime=0.0f;
+    Music winnerMusic = LoadMusicStream("assets/music/ThePrice.mp3");
+    float winnerTime=0.0f;
 
     //Sonidos
     Sound sBom1= LoadSound("assets/sounds/Bom 1.mp3");//Sonido al comer una manzana
@@ -109,6 +114,9 @@ int main()
             {
                 //Reinicio
                 game=true;
+                over=false;
+                
+                //Snake posicion
                 snake->pos.x=celsize*2;
                 snake->pos.y=celsize*(celycount/2);
                 snake->next=NULL;
@@ -123,11 +131,11 @@ int main()
                 //Puntuacion Contador
                 int puntuacion=0;
                 Vector2 textPos;
-                textPos.x=screenWidth-320;
+                textPos.x=screenWidth-350;
                 textPos.y=screenHeight-50;
 
                 Vector2 puntsPos;
-                puntsPos.x=screenWidth-50;
+                puntsPos.x=screenWidth-70;
                 puntsPos.y=screenHeight-50;
                 char contCad[3] ={"0"};
 
@@ -139,8 +147,12 @@ int main()
                 {
                     BeginDrawing();
                     {
-                        andanMusic(gameMusic,gameTime);
+                        //Fondo
                         DrawTextureEx(fondoG.text,fondoG.pos,0.0f,1.0f,WHITE);
+                        
+                        //Musica
+                        andanMusic(gameMusic,gameTime);
+                        
                         //Grid------------------------------------------------
                             for (int x = 100; x < 1150; x += celsize) 
                             {
@@ -151,10 +163,17 @@ int main()
                                 DrawLine(100, y, 1100, y, LIGHTGRAY);
                             }
                         //-----------------------------------------------------
-
+                        
+                        //Manzana
                         drawFood(apple);
+                        
+                        //Snake
                         drawSnakeP(snake,direction);
+                        
+                        //Puntuacion texto
                         DrawTextEx(font,"Puntuacion :",textPos,50,1.0,WHITE);
+                        
+                        //Contador de puntos
                         itoa(puntuacion,contCad,10);
                         DrawTextEx(font,contCad,puntsPos,50,1.0,WHITE);
 
@@ -246,11 +265,6 @@ int main()
                                     
                                 }
                             }
-                            if(IsKeyPressed(KEY_SPACE))
-                            {
-                                apple.Fpos=spawnfood(&snake,celxcount,celycount);
-                                
-                            }
                         }
 
                         //Manzana
@@ -259,8 +273,8 @@ int main()
                             if(snake->pos.y==apple.Fpos.y)
                             {
                                 apple.Fpos=spawnfood(&snake,celxcount,celycount);
-                                add(&snake);
                                 PlaySound(sBom1);
+                                add(&snake);
                                 puntuacion++;
                             }
                         }
@@ -270,20 +284,50 @@ int main()
                         {
                             game=false;
                             menu=0;
+                            over=true;
                         }
 
                         //Salida
                         if(IsKeyPressed(KEY_ESCAPE))
                         {
                             game=false;
+                            over=false;
                             menu=0;
                         }
                         
                         //Actualizacion de ultima posicion
                         snake->lastpos.x=snake->pos.x;
                         snake->lastpos.y=snake->pos.y;
+                        
+                        if(over==true)
+                        {
+                            StopMusicStream(gameMusic);
+                            while(over==true)
+                            {
+                                BeginDrawing();
+                                if(puntuacion>=240)//Winner Screen
+                                {
+                                    andanMusic(winnerMusic,winnerTime);
+                                    DrawTextureEx(fondoW.text,fondoW.pos,0.0f,1.0f,WHITE);
+                                }
+                                else//Game Over Screen
+                                {
+                                    andanMusic(overMusic,overTime);
+                                    DrawTextureEx(fondoO.text,fondoO.pos,0.0f,1.0f,WHITE);
+                                }
+                                    if(IsKeyPressed(KEY_ESCAPE))
+                                    {
+                                        over=false;
+                                    }
+                                EndDrawing();
+                            }
+                            StopMusicStream(winnerMusic);
+                            StopMusicStream(overMusic);
+                        }
                     }   
+                    
                     EndDrawing();
+
                 }while(game==true);
             }
             else
@@ -303,6 +347,8 @@ int main()
     {
         UnloadMusicStream(gameMusic);
         UnloadMusicStream(menuMusic);
+        UnloadMusicStream(overMusic);
+        UnloadMusicStream(winnerMusic);
         UnloadSound(sBom1);
         UnloadSound(sBom4);
     }

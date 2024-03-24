@@ -36,7 +36,22 @@ struct img initMenu()//Menu BackGround;
 struct img initGameOver()//Gameover BackGround;
 {
     struct img over;
-    over.img=LoadImage("assets/photos/Backgrounds/GameOverChafa.png");
+    over.img=LoadImage("assets/photos/Backgrounds/GameOverScreen.png");
+    over.text=LoadTextureFromImage(over.img);
+    
+    over.pos.x=0.0;
+    over.pos.y=0.0;
+    
+    over.Height=over.img.height;
+    over.Width=over.img.width;
+    UnloadImage(over.img);
+    return over;
+}
+
+struct img initWinner()//Winner BackGround;
+{
+    struct img over;
+    over.img=LoadImage("assets/photos/Backgrounds/PuntuacionMaxima.png");
     over.text=LoadTextureFromImage(over.img);
     
     over.pos.x=0.0;
@@ -151,4 +166,3 @@ int drawMenu(Music music,float musicTime,struct img fondoM,struct img title, str
     }
     return op;
 }
-
