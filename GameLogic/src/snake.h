@@ -32,7 +32,7 @@ struct img initIMGHead()
 {
     struct img head;
     //Head---------------------------------------------------------------------------------------------------------
-    head.img=LoadImage("assets/photos/SnakeHead.png");
+    head.img=LoadImage("assets/photos/icons/SnakeHead.png");
     head.text=LoadTextureFromImage(head.img);
     
     head.pos.x=0.0;
@@ -40,6 +40,7 @@ struct img initIMGHead()
     
     head.Height=head.img.height;
     head.Width=head.img.width;
+    UnloadImage(head.img);
     
     return head;
 }

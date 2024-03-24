@@ -25,6 +25,7 @@ int main()
     // Inits--------------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "SnakeCs");
     initImage(screenWidth, screenHeight);
+    Font font = LoadFont("assets/fonts/BerlinSansFBDemiBold.ttf");
     // Variables----------------------------------------------------------------------------------------s
     int celsize= 50;//Grid tamaño
     int celxcount=1000/50;//Grid cantidad x
@@ -54,6 +55,7 @@ int main()
 
     //Manzana
     struct Manzana apple;
+    apple.appleIcon=initIMGapple();
     apple.Fpos=spawnfood(&snake,celxcount,celycount);
 
     //banderas de inicio
@@ -90,6 +92,16 @@ int main()
                 int SbandL=FALSE;
                 int SbandU=FALSE;
                 int SbandD=FALSE;
+
+                int puntuacion=0;
+                Vector2 textPos;
+                textPos.x=screenWidth-320;
+                textPos.y=screenHeight-50;
+
+                Vector2 puntsPos;
+                puntsPos.x=screenWidth-50;
+                puntsPos.y=screenHeight-50;
+                char contCad[3] ={"0"};
                 
                 do
                 {
@@ -108,10 +120,14 @@ int main()
                             }
                         //-----------------------------------------------------
 
-                        
+                        drawFood(apple);
+                        drawSnakeP(snake,direction);
+                        DrawTextEx(font,"Puntuacion :",textPos,50,1.0,WHITE);
+                        itoa(puntuacion,contCad,10);
+                        DrawTextEx(font,contCad,puntsPos,50,1.0,WHITE);
 
                         //Movimiento
-                        if((bandTime=movSmooth(0.3))==TRUE)
+                        if((bandTime=movSmooth(0.2))==TRUE)
                         {
                             if(SbandR==TRUE)
                             {
@@ -144,8 +160,7 @@ int main()
                             }
                         }
 
-                        
-
+                        //Teclas de movimiento
                         {
                             if(IsKeyPressed(KEY_D))
                             {
@@ -213,11 +228,9 @@ int main()
                             {
                                 apple.Fpos=spawnfood(&snake,celxcount,celycount);
                                 add(&snake);
+                                puntuacion++;
                             }
                         }
-
-                        drawFood(apple);
-                        drawSnakeP(snake,direction);
                         
                         // Colisiones
                         if((bandColi=colision(&snake,celstartX,cellimitX,celstartY,cellimitY))==true)
@@ -225,9 +238,6 @@ int main()
                             game=false;
                             menu=0;
                         }
-                        
-                        
-
 
                         //Salida
                         if(IsKeyPressed(KEY_ESCAPE))
@@ -235,7 +245,8 @@ int main()
                             game=false;
                             menu=0;
                         }
-
+                        
+                        //Actualizacion de ultima posicion
                         snake->lastpos.x=snake->pos.x;
                         snake->lastpos.y=snake->pos.y;
                     }   

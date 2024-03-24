@@ -5,6 +5,7 @@
 
 struct Manzana
 {
+    struct img appleIcon;
     Vector2 Fpos;
 };
 
@@ -13,10 +14,26 @@ Vector2 spawnfood(struct Nodo **head,int gridx,int gridy);
 void drawFood(struct Manzana apple);
 
 //Funciones
+struct img initIMGapple()
+{
+    struct img apple;
+    //apple---------------------------------------------------------------------------------------------------------
+    apple.img=LoadImage("assets/photos/icons/Apple.png");
+    apple.text=LoadTextureFromImage(apple.img);
+    
+    apple.pos.x=0.0;
+    apple.pos.y=0.0;
+    
+    apple.Height=apple.img.height;
+    apple.Width=apple.img.width;
+    UnloadImage(apple.img);
+    
+    return apple;
+}
+
 void drawFood(struct Manzana apple)
 {
-    Color appleColor = {187,46,70,255};
-    DrawRectangle(apple.Fpos.x,apple.Fpos.y,50,50,appleColor);
+    DrawTextureEx(apple.appleIcon.text,apple.Fpos,0.0f,1.0f,WHITE);
 }
 
 Vector2 spawnfood(struct Nodo **head,int gridx,int gridy)
