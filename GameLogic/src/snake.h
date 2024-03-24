@@ -8,10 +8,11 @@
 struct Nodo{
     Vector2 lastpos;
     Vector2 pos;
+    struct img head;
     struct Nodo*next;
 };
 //Prototipos---------------------------------------------------------------
-void drawSnakeP(struct Nodo *snake);//Dibujar Serpiente
+void drawSnakeP(struct Nodo *snake,int direction);//Dibujar Serpiente
 
 struct Nodo* crear();//Crear Nodo
 void add (struct Nodo **head);//Agregar Nodo a la serpiente
@@ -24,19 +25,78 @@ void moveHeadU(struct Nodo **head);//Mover Izquierda/Left
 
 int movSmooth (double tiempoEstimado);//Movimiento cada cierto tiempo
 
+struct img initIMGHead();
+
 //Funciones---------------------------------------------------------------
-void drawSnakeP(struct Nodo *snake)
+struct img initIMGHead()
+{
+    struct img head;
+    //Head---------------------------------------------------------------------------------------------------------
+    head.img=LoadImage("assets/photos/SnakeHead.png");
+    head.text=LoadTextureFromImage(head.img);
+    
+    head.pos.x=0.0;
+    head.pos.y=0.0;
+    
+    head.Height=head.img.height;
+    head.Width=head.img.width;
+    
+    return head;
+}
+
+void drawSnakeP(struct Nodo *snake,int direction)
 {
     Vector2 tempPos;
-    
+    bool head=true;
     struct Nodo *temp=snake;
+    Vector2 headVect;
+    Color BodyColor={74,156,106,255};
+
     while(temp!=NULL)
     {
         tempPos.x=temp->pos.x;
         tempPos.y=temp->pos.y;
         
-        DrawRectangle(tempPos.x,tempPos.y,50,50,WHITE);
-        // printf("%d",temp->data);
+        if(head==true)
+        {
+            if(direction==1)//Right
+            {
+                DrawTextureEx(temp->head.text,temp->pos,0.0f,1.0f,WHITE);
+            }
+            else
+            {
+                if(direction==2)//Left
+                {
+                    headVect.x=temp->pos.x+50;
+                    headVect.y=temp->pos.y+50;
+                    DrawTextureEx(temp->head.text,headVect,180.0f,1.0f,WHITE);
+                }
+                else
+                {
+                    if(direction==3)//Up
+                    {
+                        headVect.x=temp->pos.x;
+                        headVect.y=temp->pos.y+50;
+                        DrawTextureEx(temp->head.text,headVect,270.0f,1.0f,WHITE);
+                    }
+                    else
+                    {
+                        if(direction==4)//Down
+                        {
+                            headVect.x=temp->pos.x+50;
+                            headVect.y=temp->pos.y;
+                            DrawTextureEx(temp->head.text,headVect,90.0f,1.0f,WHITE);
+                        }
+                    }
+                }
+            }
+            head=false;
+        }
+        else
+        {
+            DrawRectangle(tempPos.x,tempPos.y,50,50,BodyColor);
+        }
+        
         temp=temp->next;
     }
 }

@@ -93,7 +93,7 @@ struct img initGameBackground()
     
     fondoG.Height=fondoG.img.height;
     fondoG.Width=fondoG.img.width;
-    
+    UnloadImage(fondoG.img);
     return fondoG;
 }
 

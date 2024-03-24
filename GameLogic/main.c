@@ -44,6 +44,7 @@ int main()
     snake->pos.y=celsize*(celycount/2);
     
     snake->next=NULL;
+    snake->head=initIMGHead();
     
     //Banderas de direccion
     int SbandR=TRUE;
@@ -61,6 +62,8 @@ int main()
     bool over = false;
 
     bool bandColi =false;
+
+    //Fondos
     struct img fondoG=initGameBackground();
     
 
@@ -81,6 +84,7 @@ int main()
                 snake->pos.x=celsize*2;
                 snake->pos.y=celsize*(celycount/2);
                 snake->next=NULL;
+                int direction=1;//right
 
                 int SbandR=TRUE;
                 int SbandL=FALSE;
@@ -103,8 +107,6 @@ int main()
                                 DrawLine(100, y, 1100, y, LIGHTGRAY);
                             }
                         //-----------------------------------------------------
-                        drawSnakeP(snake);
-                        drawFood(apple);
 
                         
 
@@ -113,30 +115,36 @@ int main()
                         {
                             if(SbandR==TRUE)
                             {
+                                direction=1;
                                 moveHeadR(&snake);
                             }
                             else
                             {
                                 if(SbandL==TRUE)
                                 {
+                                    direction=2;
                                     moveHeadL(&snake);
                                 }
                                 else
                                 {
                                     if(SbandU==TRUE)
                                     {
+                                        direction=3;
                                         moveHeadU(&snake);
                                     }
                                     else
                                     {
                                         if(SbandD==TRUE)
                                         {
+                                            direction=4;
                                             moveHeadD(&snake);
                                         }
                                     }
                                 }
                             }
                         }
+
+                        
 
                         {
                             if(IsKeyPressed(KEY_D))
@@ -149,7 +157,7 @@ int main()
                                     SbandL=FALSE;
                                     SbandU=FALSE;
                                     SbandD=FALSE;
-                                    moveHeadR(&snake);
+                                    
                                 }
                             }
                             if(IsKeyPressed(KEY_A))
@@ -162,7 +170,7 @@ int main()
                                     SbandR=FALSE;
                                     SbandU=FALSE;
                                     SbandD=FALSE;
-                                    moveHeadL(&snake);
+                                    
                                 }
                             }
                             if(IsKeyPressed(KEY_S))
@@ -175,7 +183,7 @@ int main()
                                     SbandL=FALSE;
                                     SbandR=FALSE;
                                     SbandU=FALSE;
-                                    moveHeadD(&snake);
+                                    
                                 }
                             }
                             if(IsKeyPressed(KEY_W))
@@ -188,7 +196,7 @@ int main()
                                     SbandL=FALSE;
                                     SbandR=FALSE;
                                     SbandD=FALSE;
-                                    moveHeadU(&snake);
+                                    
                                 }
                             }
                             if(IsKeyPressed(KEY_SPACE))
@@ -207,6 +215,9 @@ int main()
                                 add(&snake);
                             }
                         }
+
+                        drawFood(apple);
+                        drawSnakeP(snake,direction);
                         
                         // Colisiones
                         if((bandColi=colision(&snake,celstartX,cellimitX,celstartY,cellimitY))==true)

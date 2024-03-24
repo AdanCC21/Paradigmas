@@ -15,7 +15,8 @@ void drawFood(struct Manzana apple);
 //Funciones
 void drawFood(struct Manzana apple)
 {
-    DrawRectangle(apple.Fpos.x,apple.Fpos.y,50,50,BLACK);
+    Color appleColor = {187,46,70,255};
+    DrawRectangle(apple.Fpos.x,apple.Fpos.y,50,50,appleColor);
 }
 
 Vector2 spawnfood(struct Nodo **head,int gridx,int gridy)
