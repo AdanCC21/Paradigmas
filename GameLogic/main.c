@@ -10,6 +10,7 @@
 #include "./src/snake.h"
 #include "./src/apple.h"
 
+
 #define TRUE 1
 #define FALSE 0
 #define CELSIZE 50//Luego lo modifico-------------------------------------
@@ -24,6 +25,7 @@ int main()
 
     // Inits--------------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "SnakeCs");
+    InitAudioDevice();
     initImage(screenWidth, screenHeight);
     Font font = LoadFont("assets/fonts/BerlinSansFBDemiBold.ttf");
     // Variables----------------------------------------------------------------------------------------s
@@ -67,20 +69,29 @@ int main()
 
     //Fondos
     struct img fondoG=initGameBackground();
+
+    //Musica
+    Music menuMusic = LoadMusicStream("assets/music/DKcountry.mp3");
+    float menuTime=0.0f;
+    Music gameMusic = LoadMusicStream("assets/music/Stage1.mp3");
+    float gameTime=0.0f;
     
 
     // Main game loop------------------------------------------------------------------------------------
     while (!WindowShouldClose())
-    {
+    {   
         BeginDrawing();
         {
+            
             if(menu==0)
             {
-                menu=drawMenu();
+                menu=drawMenu(menuMusic,menuTime);
             }
             
             if(menu==1)
             {
+                StopMusicStream(menuMusic);
+                StopMusicStream(gameMusic);
                 //Reinicio
                 game=true;
                 snake->pos.x=celsize*2;
@@ -107,7 +118,7 @@ int main()
                 {
                     BeginDrawing();
                     {
-
+                        andanMusic(gameMusic,gameTime);
                         DrawTextureEx(fondoG.text,fondoG.pos,0.0f,1.0f,WHITE);
                         //Grid------------------------------------------------
                             for (int x = 100; x < 1150; x += celsize) 

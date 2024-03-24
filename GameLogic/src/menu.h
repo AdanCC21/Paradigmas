@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "raylib.h"
+#include "../src/sounds.h"
 
 struct img{
     Image img;
@@ -16,9 +17,10 @@ struct img over;
 struct img iniciar;
 struct img salir;
 
+
 void initImage(int screenWidth, int screenHeight);
 struct img initGameBackground();
-int drawMenu();
+int drawMenu(Music music,float musicTime);
 
 void initImage(int screenWidth, int screenHeight)
 {
@@ -97,12 +99,13 @@ struct img initGameBackground()
     return fondoG;
 }
 
-int drawMenu()
+int drawMenu(Music music,float musicTime)
 {
     int op=0;
     Vector2 mouse ={0.0f,0.0f};
     while(op==0)
     {
+        andanMusic(music,musicTime);
         BeginDrawing();
             DrawTextureEx(fondo.text,fondo.pos,0.0f,1.0f,WHITE);//Fondo
             DrawTextureEx(title.text,title.pos,0.0f,0.5f,WHITE);//Titulo
