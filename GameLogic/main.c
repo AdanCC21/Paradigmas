@@ -94,13 +94,13 @@ int main()
 
                         DrawTextureEx(fondoG.text,fondoG.pos,0.0f,1.0f,WHITE);
                         //Grid------------------------------------------------
-                            for (int x = 0; x < screenWidth; x += celsize) 
+                            for (int x = 100; x < 1150; x += celsize) 
                             {
-                                DrawLine(x, 0, x, screenHeight, LIGHTGRAY);
+                                DrawLine(x, 50, x, 650, LIGHTGRAY);
                             }
-                            for (int y = 0; y < screenHeight; y += celsize) 
+                            for (int y = 50; y < 750; y += celsize) 
                             {
-                                DrawLine(0, y, screenWidth, y, LIGHTGRAY);
+                                DrawLine(100, y, 1100, y, LIGHTGRAY);
                             }
                         //-----------------------------------------------------
                         drawSnakeP(snake);

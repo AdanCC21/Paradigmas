@@ -26,7 +26,7 @@ Vector2 spawnfood(struct Nodo **head,int gridx,int gridy)
     {
         clean=true;
         temp.x =GetRandomValue(2,(gridx -2));
-        temp.y= GetRandomValue(1,(gridy + 1));
+        temp.y= GetRandomValue(1,(gridy));
         temp.x=temp.x*50;
         temp.y=temp.y*50;
 
