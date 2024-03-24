@@ -41,7 +41,7 @@ void drawSnakeP(struct Nodo *snake)
     }
 }
 
-bool colision (struct Nodo **head,int screenWidth, int screenHeight)
+bool colision (struct Nodo **head,int startx, int limitX, int startY, int limitY)
 {
     struct Nodo *temp=*head;
     temp=temp->next;
@@ -57,11 +57,11 @@ bool colision (struct Nodo **head,int screenWidth, int screenHeight)
         temp=temp->next;
     }
 
-    if((*head)->pos.x<0.0|| (*head)->pos.x>=screenWidth)
+    if((*head)->pos.x<startx|| (*head)->pos.x>=limitX)
     {
         return true;
     }
-    if((*head)->pos.y<0.0 || (*head)->pos.y>=screenHeight)
+    if((*head)->pos.y<startY || (*head)->pos.y>=limitY)
     {
         return true;
     }

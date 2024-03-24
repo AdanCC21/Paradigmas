@@ -18,7 +18,7 @@
 int main()
 {
     // Ventana Info--------------------------------------------------------------------------------------
-    int screenWidth = 1250;
+    int screenWidth = 1280;
     int screenHeight = 700;
     SetTargetFPS(60);
 
@@ -27,8 +27,14 @@ int main()
     initImage(screenWidth, screenHeight);
     // Variables----------------------------------------------------------------------------------------s
     int celsize= 50;//Grid tamaño
-    int celxcount=screenWidth/50;//Grid cantidad x
-    int celycount=screenHeight/50;//Grid cantidad y
+    int celxcount=1000/50;//Grid cantidad x
+    int celycount=600/50;//Grid cantidad y
+
+    int celstartX=50*2;//cantidad en casillas que dejara de espacio desde 0 de x
+    int celstartY=50*1;//cantidad en casillas que dejara de espacio desde 0 de y
+
+    int cellimitX=(celstartX)+celxcount*50;
+    int cellimitY=(celstartY)+celycount*50;
 
     int bandTime=FALSE;
 
@@ -55,6 +61,7 @@ int main()
     bool over = false;
 
     bool bandColi =false;
+    struct img fondoG=initGameBackground();
     
 
     // Main game loop------------------------------------------------------------------------------------
@@ -85,7 +92,7 @@ int main()
                     BeginDrawing();
                     {
 
-                        DrawTextureEx(fondo.text,fondo.pos,0.0f,1.0f,WHITE);
+                        DrawTextureEx(fondoG.text,fondoG.pos,0.0f,1.0f,WHITE);
                         //Grid------------------------------------------------
                             for (int x = 0; x < screenWidth; x += celsize) 
                             {
@@ -186,8 +193,8 @@ int main()
                             }
                             if(IsKeyPressed(KEY_SPACE))
                             {
-                                // apple.Fpos=spawnfood(&snake,celxcount,celycount);
-                                add(&snake);
+                                apple.Fpos=spawnfood(&snake,celxcount,celycount);
+                                
                             }
                         }
 
@@ -202,7 +209,7 @@ int main()
                         }
                         
                         // Colisiones
-                        if((bandColi=colision(&snake,screenWidth,screenHeight))==true)
+                        if((bandColi=colision(&snake,celstartX,cellimitX,celstartY,cellimitY))==true)
                         {
                             game=false;
                             menu=0;

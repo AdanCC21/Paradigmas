@@ -17,6 +17,7 @@ struct img iniciar;
 struct img salir;
 
 void initImage(int screenWidth, int screenHeight);
+struct img initGameBackground();
 int drawMenu();
 
 void initImage(int screenWidth, int screenHeight)
@@ -80,6 +81,22 @@ void initImage(int screenWidth, int screenHeight)
 
 }
 
+struct img initGameBackground()
+{
+    struct img fondoG;
+    //Fondo En Game---------------------------------------------------------------------------------------------------------
+    fondoG.img=LoadImage("assets/photos/Backgrounds/Game1000x650.png");
+    fondoG.text=LoadTextureFromImage(fondoG.img);
+    
+    fondoG.pos.x=0.0;
+    fondoG.pos.y=0.0;
+    
+    fondoG.Height=fondoG.img.height;
+    fondoG.Width=fondoG.img.width;
+    
+    return fondoG;
+}
+
 int drawMenu()
 {
     int op=0;
@@ -115,15 +132,4 @@ int drawMenu()
     }
     return op;
 }
-
-int drawOver()
-{
-    int op=3;
-    Vector2 mouse ={0.0f,0.0f};
-
-    DrawTextureEx(over.text,over.pos,0.0f,1.0f,WHITE);//Fondo
-    
-    return op;
-}
-
 
