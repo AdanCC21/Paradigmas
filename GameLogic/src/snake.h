@@ -23,11 +23,12 @@ void moveHeadL(struct Nodo **head);//Mover Arriba/Up
 void moveHeadD(struct Nodo **head);//Mover Abajo/Down
 void moveHeadU(struct Nodo **head);//Mover Izquierda/Left
 
-int movSmooth (double tiempoEstimado);//Movimiento cada cierto tiempo
+int movSmooth (double tiempoEstimado, double *time);//Movimiento cada cierto tiempo
 
 struct img initIMGHead();
 
-//Funciones---------------------------------------------------------------
+//Funciones----------------------------------------------------------------------
+
 struct img initIMGHead()
 {
     struct img head;
@@ -102,6 +103,8 @@ void drawSnakeP(struct Nodo *snake,int direction)
     }
 }
 
+//Colision------------------------------------------------------------------------
+
 bool colision (struct Nodo **head,int startx, int limitX, int startY, int limitY)
 {
     struct Nodo *temp=*head;
@@ -130,6 +133,8 @@ bool colision (struct Nodo **head,int startx, int limitX, int startY, int limitY
     return false;
 }
 
+//Nodos--------------------------------------------------------------------------
+
 struct Nodo* crear()
 {
     struct Nodo* newNodo = (struct Nodo*)malloc(sizeof(struct Nodo));
@@ -155,7 +160,6 @@ void add (struct Nodo **head)
 }
 
 //Movimientos---------------------------------------------------------------------
-double time=0.0;
 
 //Derecha/Right
 void moveHeadR(struct Nodo **head)
@@ -250,12 +254,12 @@ void moveHeadL(struct Nodo **head)
     }
 }
 
-int movSmooth (double tiempoEstimado)
+int movSmooth (double tiempoEstimado, double *time)
 {
     double timePass=GetTime();
-    if(timePass - time>tiempoEstimado)
+    if(timePass - *time>tiempoEstimado)
     {
-        time=timePass;
+        *time=timePass;
         return TRUE;
     }
     return FALSE;

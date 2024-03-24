@@ -7,24 +7,20 @@ struct img{
     Image img;
     Texture2D text;
     Vector2 pos;
-    int Width;
-    int Height;
+    float Width;
+    float Height;
 };
-
-struct img fondo;
-struct img title;
-struct img over;
-struct img iniciar;
-struct img salir;
-
 
 void initImage(int screenWidth, int screenHeight);
 struct img initGameBackground();
 int drawMenu(Music music,float musicTime);
 
-void initImage(int screenWidth, int screenHeight)
+//Funciones----------------------------------------------------------------------------------------------------------------
+//Inits------------------------------------------------------------------------------------
+
+struct img initMenu()//Menu BackGround;
 {
-    //Fondo---------------------------------------------------------------------------------------------------------------
+    struct img fondo;
     fondo.img=LoadImage("assets/photos/Backgrounds/FondoColor.png");
     fondo.text=LoadTextureFromImage(fondo.img);
     
@@ -34,8 +30,12 @@ void initImage(int screenWidth, int screenHeight)
     fondo.Height=fondo.img.height;
     fondo.Width=fondo.img.width;
     UnloadImage(fondo.img);
-    
-    //GameOver---------------------------------------------------------------------------------------------------------------
+    return fondo;
+}
+
+struct img initGameOver()//Gameover BackGround;
+{
+    struct img over;
     over.img=LoadImage("assets/photos/Backgrounds/GameOverChafa.png");
     over.text=LoadTextureFromImage(over.img);
     
@@ -45,8 +45,12 @@ void initImage(int screenWidth, int screenHeight)
     over.Height=over.img.height;
     over.Width=over.img.width;
     UnloadImage(over.img);
-    
-    //Titulo---------------------------------------------------------------------------------------------------------------
+    return over;
+}
+
+struct img initTitleButton(int screenWidth)//Title Text;
+{
+    struct img title;
     title.img=LoadImage("assets/photos/Snakecs.png");
     title.text=LoadTextureFromImage(title.img);
     int titMed=(title.img.width/2)/2;
@@ -57,8 +61,12 @@ void initImage(int screenWidth, int screenHeight)
     title.Height=title.img.height;
     title.Width=title.img.width;
     UnloadImage(title.img);
-    
-    //Boton de iniciar---------------------------------------------------------------------------------------------------------------
+    return title;
+}
+
+struct img initStartButton(int screenWidth)//Start Button;
+{
+    struct img iniciar;
     iniciar.img=LoadImage("assets/photos/Bottons/INICIARx300.png");
     iniciar.text=LoadTextureFromImage(iniciar.img);
     
@@ -67,9 +75,15 @@ void initImage(int screenWidth, int screenHeight)
     
     iniciar.Height=iniciar.img.height;
     iniciar.Width=iniciar.img.width;
-    UnloadImage(iniciar.img);
     
-    //Boton de Salir---------------------------------------------------------------------------------------------------------------
+    UnloadImage(iniciar.img);
+
+    return iniciar;
+}
+
+struct img initExitButton(int screenWidth)//Exit Button;
+{
+    struct img salir;
     salir.img=LoadImage("assets/photos/Bottons/SALIRx300.png");
     salir.text=LoadTextureFromImage(salir.img);
     
@@ -81,6 +95,7 @@ void initImage(int screenWidth, int screenHeight)
     
     UnloadImage(salir.img);
 
+    return salir;
 }
 
 struct img initGameBackground()
@@ -99,7 +114,7 @@ struct img initGameBackground()
     return fondoG;
 }
 
-int drawMenu(Music music,float musicTime)
+int drawMenu(Music music,float musicTime,struct img fondoM,struct img title, struct img start, struct img exit)
 {
     int op=0;
     Vector2 mouse ={0.0f,0.0f};
@@ -107,14 +122,15 @@ int drawMenu(Music music,float musicTime)
     {
         andanMusic(music,musicTime);
         BeginDrawing();
-            DrawTextureEx(fondo.text,fondo.pos,0.0f,1.0f,WHITE);//Fondo
+            DrawTextureEx(fondoM.text,fondoM.pos,0.0f,1.0f,WHITE);//Fondo
             DrawTextureEx(title.text,title.pos,0.0f,0.5f,WHITE);//Titulo
-
-            Rectangle iniciarRect = {iniciar.pos.x,iniciar.pos.y,iniciar.Width,iniciar.Height};//Rectangulo base
-            DrawTextureEx(iniciar.text,iniciar.pos,0.0f,1.0f,WHITE);//Boton iniciar
             
-            Rectangle salirRect ={salir.pos.x,salir.pos.y,salir.Width,salir.Height};//Rectangulo base
-            DrawTextureEx(salir.text,salir.pos,0.0f,1.0f,WHITE);//Boton Salir
+
+            Rectangle iniciarRect = {start.pos.x,start.pos.y,start.Width,start.Height};//Rectangulo base
+            DrawTextureEx(start.text,start.pos,0.0f,1.0f,WHITE);//Boton iniciar
+            
+            Rectangle salirRect ={exit.pos.x,exit.pos.y,exit.Width,exit.Height};//Rectangulo base
+            DrawTextureEx(exit.text,exit.pos,0.0f,1.0f,WHITE);//Boton Salir
 
             mouse=GetMousePosition();
             if(CheckCollisionPointRec(mouse,iniciarRect))

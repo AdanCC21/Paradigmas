@@ -9,11 +9,11 @@ struct Manzana
     Vector2 Fpos;
 };
 
-//Prototype-----
+//Prototype--------------------------------------------------
 Vector2 spawnfood(struct Nodo **head,int gridx,int gridy);
 void drawFood(struct Manzana apple);
 
-//Funciones
+//Funciones--------------------------------------------------
 struct img initIMGapple()
 {
     struct img apple;

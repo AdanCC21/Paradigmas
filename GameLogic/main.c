@@ -26,9 +26,12 @@ int main()
     // Inits--------------------------------------------------------------------------------------------
     InitWindow(screenWidth, screenHeight, "SnakeCs");
     InitAudioDevice();
-    initImage(screenWidth, screenHeight);
-    Font font = LoadFont("assets/fonts/BerlinSansFBDemiBold.ttf");
     // Variables----------------------------------------------------------------------------------------s
+    
+    //Fuente de texto
+    Font font = LoadFont("assets/fonts/BerlinSansFBDemiBold.ttf");
+    
+    //Grid
     int celsize= 50;//Grid tamaño
     int celxcount=1000/50;//Grid cantidad x
     int celycount=600/50;//Grid cantidad y
@@ -49,7 +52,10 @@ int main()
     snake->next=NULL;
     snake->head=initIMGHead();
     
-    //Banderas de direccion
+    //Movimiento cronometro
+    double time=0.0;
+
+     //Banderas de movimiento
     int SbandR=TRUE;
     int SbandL=FALSE;
     int SbandU=FALSE;
@@ -68,13 +74,23 @@ int main()
     bool bandColi =false;
 
     //Fondos
-    struct img fondoG=initGameBackground();
+    struct img fondoG=initGameBackground();//Fondo del juego
+    struct img fondoM=initMenu();
+    struct img fondoO=initGameOver();
+    //Botones
+    struct img title=initTitleButton(screenWidth);//Titulo
+    struct img start=initStartButton(screenWidth);//Boton de iniciar
+    struct img exit=initExitButton(screenWidth);//Boton de salir
 
     //Musica
     Music menuMusic = LoadMusicStream("assets/music/DKcountry.mp3");
     float menuTime=0.0f;
     Music gameMusic = LoadMusicStream("assets/music/Stage1.mp3");
     float gameTime=0.0f;
+
+    //Sonidos
+    Sound sBom1= LoadSound("assets/sounds/Bom 1.mp3");//Sonido al comer una manzana
+    Sound sBom4= LoadSound("assets/sounds/Bom 4.mp3");//Sonido al morir
     
 
     // Main game loop------------------------------------------------------------------------------------
@@ -82,16 +98,15 @@ int main()
     {   
         BeginDrawing();
         {
-            
+            StopSound(sBom1);
+
             if(menu==0)
             {
-                menu=drawMenu(menuMusic,menuTime);
+                menu=drawMenu(menuMusic,menuTime,fondoM,title,start,exit);
             }
             
             if(menu==1)
             {
-                StopMusicStream(menuMusic);
-                StopMusicStream(gameMusic);
                 //Reinicio
                 game=true;
                 snake->pos.x=celsize*2;
@@ -99,11 +114,13 @@ int main()
                 snake->next=NULL;
                 int direction=1;//right
 
-                int SbandR=TRUE;
-                int SbandL=FALSE;
-                int SbandU=FALSE;
-                int SbandD=FALSE;
+                //Banderas de movimiento
+                SbandR=TRUE;
+                SbandL=FALSE;
+                SbandU=FALSE;
+                SbandD=FALSE;
 
+                //Puntuacion Contador
                 int puntuacion=0;
                 Vector2 textPos;
                 textPos.x=screenWidth-320;
@@ -113,6 +130,10 @@ int main()
                 puntsPos.x=screenWidth-50;
                 puntsPos.y=screenHeight-50;
                 char contCad[3] ={"0"};
+
+                //Musica
+                StopMusicStream(menuMusic);
+                StopMusicStream(gameMusic);
                 
                 do
                 {
@@ -138,7 +159,7 @@ int main()
                         DrawTextEx(font,contCad,puntsPos,50,1.0,WHITE);
 
                         //Movimiento
-                        if((bandTime=movSmooth(0.2))==TRUE)
+                        if((bandTime=movSmooth(0.2,&time))==TRUE)
                         {
                             if(SbandR==TRUE)
                             {
@@ -239,6 +260,7 @@ int main()
                             {
                                 apple.Fpos=spawnfood(&snake,celxcount,celycount);
                                 add(&snake);
+                                PlaySound(sBom1);
                                 puntuacion++;
                             }
                         }
@@ -275,6 +297,14 @@ int main()
             
         }
         EndDrawing();
+    }
+
+    //Unloads------------------------
+    {
+        UnloadMusicStream(gameMusic);
+        UnloadMusicStream(menuMusic);
+        UnloadSound(sBom1);
+        UnloadSound(sBom4);
     }
 
     CloseWindow();
