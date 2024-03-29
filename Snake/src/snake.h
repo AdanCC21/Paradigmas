@@ -11,7 +11,7 @@ struct Nodo{
     struct img head;
     struct Nodo*next;
 };
-//Prototipos---------------------------------------------------------------
+//Prototipos------------------------------------------------
 void drawSnakeP(struct Nodo *snake,int direction);//Dibujar Serpiente
 
 struct Nodo* crear();//Crear Nodo
@@ -27,12 +27,12 @@ int movSmooth (double tiempoEstimado, double *time);//Movimiento cada cierto tie
 
 struct img initIMGHead();
 
-//Funciones----------------------------------------------------------------------
+//Funciones-------------------------------------------------
 
 struct img initIMGHead()
 {
     struct img head;
-    //Head---------------------------------------------------------------------------------------------------------
+    //Head--------------------------------------------------
     head.img=LoadImage("assets/photos/icons/SnakeHead.png");
     head.text=LoadTextureFromImage(head.img);
     
@@ -103,7 +103,7 @@ void drawSnakeP(struct Nodo *snake,int direction)
     }
 }
 
-//Colision------------------------------------------------------------------------
+//Colision--------------------------------------------------
 
 bool colision (struct Nodo **head,int startx, int limitX, int startY, int limitY)
 {
@@ -121,11 +121,11 @@ bool colision (struct Nodo **head,int startx, int limitX, int startY, int limitY
         temp=temp->next;
     }
 
-    if((*head)->pos.x<startx|| (*head)->pos.x>=limitX)
+    if(((*head)->pos.x<startx )|| ((*head)->pos.x>=limitX))
     {
         return true;
     }
-    if((*head)->pos.y<startY || (*head)->pos.y>=limitY)
+    if(((*head)->pos.y<startY) || ((*head)->pos.y>=limitY))
     {
         return true;
     }
@@ -133,7 +133,7 @@ bool colision (struct Nodo **head,int startx, int limitX, int startY, int limitY
     return false;
 }
 
-//Nodos--------------------------------------------------------------------------
+//Nodos-----------------------------------------------------
 
 struct Nodo* crear()
 {
@@ -159,7 +159,7 @@ void add (struct Nodo **head)
     temp->next=newNodo;
 }
 
-//Movimientos---------------------------------------------------------------------
+//Movimientos----------------------------------------------
 
 //Derecha/Right
 void moveHeadR(struct Nodo **head)
@@ -257,89 +257,10 @@ void moveHeadL(struct Nodo **head)
 int movSmooth (double tiempoEstimado, double *time)
 {
     double timePass=GetTime();
-    if(timePass - *time>tiempoEstimado)
+    if((timePass - *time) > tiempoEstimado)
     {
         *time=timePass;
         return TRUE;
     }
     return FALSE;
 }
-
-// //Mover Derecha
-// Vector2 moveR(Vector2 pos)
-// {
-//     Vector2 temp;
-//     temp.x=pos.x + 50;
-//     temp.y=pos.y;
-//     return temp;
-// }
-// //Mover Izquierda
-// Vector2 moveL(Vector2 pos)
-// {
-//     Vector2 temp;
-//     temp.x=pos.x - 50;
-//     temp.y=pos.y;
-//     return temp;
-// }
-// //Mover Arriba
-// Vector2 moveU(Vector2 pos)
-// {
-//     Vector2 temp;
-//     temp.x=pos.x;
-//     temp.y=pos.y - 50;
-//     return temp;
-// }
-
-// //Mover Abajo
-// Vector2 moveD(Vector2 pos)
-// {
-//     Vector2 temp;
-//     temp.x=pos.x;
-//     temp.y=pos.y + 50;
-//     return temp;
-// }
-
-// void genMoveR(struct Nodo **head)
-// {
-//     struct Nodo *temp=*head;
-//     temp=temp->next;
-//     while(temp!=NULL)
-//     {
-//         temp->pos.x=temp->lastpos.x;
-//         temp->lastpos.x=temp->pos.x;
-//         temp=temp->next;
-//     }
-// }
-
-// void genMoveL(struct Nodo **head)
-// {
-//     struct Nodo *temp=*head;
-//     while(temp!=NULL)
-//     {
-//         temp->pos.x=temp->pos.x-50;
-//         temp=temp->next;
-//     }
-// }
-// //Arriba/Up
-// void genMoveU(struct Nodo **head)
-// {
-//     struct Nodo *temp=*head;
-//     while(temp!=NULL)
-//     {
-//         temp->pos.y=temp->pos.y-50;
-//         temp=temp->next;
-//     }
-// }
-// //Abajo/Down
-
-// void genMoveD(struct Nodo **head)
-// {
-//     struct Nodo *temp=*head;
-//     while(temp!=NULL)
-//     {
-//         temp->pos.y=temp->pos.y+50;
-//         temp=temp->next;
-//     }
-// }
-
-//---------------------------------------------------------------------------------

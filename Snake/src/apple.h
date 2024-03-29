@@ -17,7 +17,7 @@ void drawFood(struct Manzana apple);
 struct img initIMGapple()
 {
     struct img apple;
-    //apple---------------------------------------------------------------------------------------------------------
+    //apple--------------------------------------------------
     apple.img=LoadImage("assets/photos/icons/Apple.png");
     apple.text=LoadTextureFromImage(apple.img);
     

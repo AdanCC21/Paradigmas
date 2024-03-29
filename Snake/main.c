@@ -13,20 +13,46 @@
 
 #define TRUE 1
 #define FALSE 0
-#define CELSIZE 50//Luego lo modifico-------------------------------------
 
+//Pagina 26-27 de la documentacion
+
+/*Puntos clave de la documentacion
+
+No define para cosas como
+    #define inicio {
+    #define fin }
+
+No mas de 80 caracteres por linea
+
+Usar parentesis en cada condicion con operadores logicos
+if((condicion)&&(condicion))
+
+Llaves rodeando el bloque de codigo
+if
+{
+    codigo
+}
+
+Que tus variables sean entendibles por si solas, es decir su nombre
+
+las variables que no se deban de modificar, deberan estar declaradas con
+const int variable
+o enviarlas a una funcion con (const int variable) y asi
+
+*/
 
 int main()
 {
-    // Ventana Info--------------------------------------------------------------------------------------
+    // Ventana Informacion
     int screenWidth = 1280;
     int screenHeight = 700;
     SetTargetFPS(60);
 
-    // Inits--------------------------------------------------------------------------------------------
+    // Inits
     InitWindow(screenWidth, screenHeight, "SnakeCs");
     InitAudioDevice();
-    // Variables----------------------------------------------------------------------------------------s
+    
+    // Variables
     
     //Fuente de texto
     Font font = LoadFont("assets/fonts/BerlinSansFBDemiBold.ttf");
