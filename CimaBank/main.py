@@ -36,9 +36,10 @@ class Bank:
     _saldo=0
     _clabe=''
 
-    def __init__(self,titular ,num,_clabe):
+    def __init__(self,titular):
         #Numero de cuenta
         self._titular=titular
+        
         noCuenta4=random.randint(1000,9999)
         noCuenta8=random.randint(1000,9999)
         noCuenta12=random.randint(1000,9999)
@@ -54,8 +55,8 @@ class Bank:
         clabe17=random.randint(10000000000,99999999999)
         clabe18=random.randint(1,9)
 
-        self._clabe=str(clabe3)+str(clabe6)+str(clabe17)+str(clabe18)   
-
+        self._clabe=str(clabe3)+str(clabe6)+str(clabe17)+str(clabe18)
+           
 
 def registrar():
     os.system('cls')
@@ -79,9 +80,6 @@ def registrar():
     pas=input("Contrasena\n")
     phone=input("Phone number\n")
     perBase.__count_init__(tmail,pas,phone)
-
-    #Banco
-    
     
     print("Datos copiados\n")
     os.system("pause")
@@ -126,6 +124,7 @@ while op!=0: #ciclo de inicio de sesion
         PerBase=registrar()
         #Una vez termine de registrarse, debera de inciar sesion
 
+#-------------------------------------------------------------------------
 def MenuMain():
     print("Bienvenido",perBase._name)
     print("Que desea realizar hoy?")
@@ -135,11 +134,16 @@ def MenuMain():
 
 def saldo():
     print("saldo actual")
+#---------------------------------------------------------------------------
 
-op=1
-while(op!=0):
-    os.system("cls")
-    op=MenuMain()
+BankBase=Bank(perBase)
+print("clabe",BankBase._clabe,"cuenta",BankBase._noCuenta, "saldo",BankBase._saldo)
+os.system("pause")
+
+# op=1
+# while(op!=0):
+#     os.system("cls")
+#     op=MenuMain()
     
 
 
