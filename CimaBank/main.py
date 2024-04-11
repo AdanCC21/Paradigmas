@@ -146,7 +146,7 @@ def retirar():
 """ 
     Ocupo mejorar la forma para iniciar sesion, pidiendo nombre, y contraseña, pondria el nombre del txt con el nombre del usuario y al inicio del txt la contrasena
     y hacer una verificacion de si la contrasena ingresada y registrada son iguales, que copie y pegue los datos
-    
+
 """
 
 def createTxt():
@@ -258,10 +258,3 @@ while op!=0:
         depositar()
     elif op==4:
         retirar()
-
-
-
-    
-
-
-
