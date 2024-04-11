@@ -242,6 +242,7 @@ def readTxt(name):
 
 op=1 #Variable para el ciclo
 PerBase=Person.Person("","","","","","") #persona base
+BankBase=Bank.Bank(PerBase) #Banco Base
 
 while op!=0: #ciclo de inicio de sesion
     os.system("cls")
@@ -256,30 +257,23 @@ while op!=0: #ciclo de inicio de sesion
         print("Ingrese su contraseña")
         sPas=input()
 
-        BankBase=Bank.Bank(PerBase)
         BankBase._noCuenta,BankBase._clabe,BankBase._saldo,PerBase._name,PerBase._pasword,PerBase._app,PerBase._apm,PerBase._mail,PerBase._phone=readTxt(sDoc)
-        BankBase=Bank.Bank(PerBase)
-        #FALTA COPIAR Y PEGAR LAS VARIABLES
-        print(PerBase._name)
-        print(BankBase._noCuenta)
-        os.system("pause")
         
         if sName==PerBase._name and sPas==PerBase._pasword:
             print("Inicio exitoso")
-            time.sleep(2)
             op=0
         else:
             print("Datos incorrectos")
+
         os.system("pause")
         
     
     if op == 2:
         #Registrarse
         PerBase=registrar()
-        BankBase=Bank.Bank.newUser(PerBase)
+        BankBase.newUser(PerBase)
         createTxt()
         
-        print("")
         print("Estos son sus datos bancarios")
         print("clabe",BankBase._clabe,"\tcuenta",BankBase._noCuenta, "\tsaldo",BankBase._saldo)
 
