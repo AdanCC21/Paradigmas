@@ -98,9 +98,10 @@ def depositar():
             
             if op==1:
                 print("Cargando")
-                temp=int(BankBase._saldo) + dep
+                temp=int(BankBase._saldo)
                 BankBase._saldo=temp + dep
                 time.sleep(2)
+                createTxt()
                 print("listo")
                 op=0
                 os.system("pause")
@@ -132,8 +133,8 @@ def retirar():
                 print("Cargando")
                 temp=(BankBase._saldo)
                 BankBase._saldo = temp - ret
-                
                 time.sleep(2)
+                createTxt()
                 print("listo")
                 op=0
                 os.system("pause")
@@ -152,6 +153,8 @@ def retirar():
 
 """
 
+#Falla cuando copio los datos a las variables
+
 def createTxt():
 
     #Obtener direccion actual del main
@@ -167,15 +170,33 @@ def createTxt():
     #Construimos la ruta
     docName=os.path.join(dirReg,PerBase._name + '.txt')
     
-    #Copiamos los datos
+    #Copiamos los datos personales
+    tName = PerBase._name + '\n'
+    tApp = PerBase._app + '\n'
+    tApm = PerBase._apm + '\n'
+    
+    tPas = PerBase._pasword + '\n'
+    tMail = PerBase._mail + '\n'
+    tPhone = PerBase._phone + '\n'
+    
+    #Copiamos los datos bancarios
     tCuenta = BankBase._noCuenta + '\n'
     tClabe = BankBase._clabe + '\n'
     tSaldo = str(BankBase._saldo) + '\n'
 
-    with open(docName, 'a') as doc:
+
+    with open(docName, 'w') as doc:
+        doc.write(tName)
+        doc.write(tPas)
+        
         doc.write(tCuenta)
         doc.write(tClabe)
         doc.write(tSaldo)
+        
+        doc.write(tApp)
+        doc.write(tApm)
+        doc.write(tMail)
+        doc.write(tPhone)
 
 def readTxt(name):
      #Obtener direccion actual del main
@@ -185,28 +206,36 @@ def readTxt(name):
     dirReg=os.path.join(dirActual,"registros")
     dirReg=os.path.join(dirReg,name)
 
-    print(dirReg)
-    os.system("pause")
-
     if os.path.exists(dirReg):
         #variables temporales
+        tName=''
+        tApp=''
+        tApm=''
+        
+        tPas=''
+        tMail=''
+        tPhone=''
+        
         tCuenta=''
         tClabe=''
         tSaldo=''
 
-        print(dirReg)
-        os.system("pause")
-
         with open (dirReg,'r') as doc:
+            tName=doc.readline().strip()
+            tPas=doc.readline().strip()
+            
             tCuenta=doc.readline().strip()
             tClabe=doc.readline().strip()
             tSaldo=doc.readline().strip()
 
-        return tCuenta,tClabe,tSaldo
+            tApp=doc.readline().strip()
+            tApm=doc.readline().strip()
+            tMail=doc.readline().strip()
+            tPhone=doc.readline().strip()
+
+        return tCuenta,tClabe,tSaldo,tName,tPas,tApp,tApm,tMail,tPhone
     else:
         print("Archivo no encontrado")
-
-
 
 
 #--------------------------INICIO DE SESION---------------------------
@@ -221,22 +250,33 @@ while op!=0: #ciclo de inicio de sesion
 
     if op ==1:
         #Iniciar sesion
-        print("Ingrese su No.Cuenta")
-        sCuenta=input()
-        
         print("Ingrese su Nombre")
         sName=input()
-        
+        sDoc= sName + '.txt'
+        print("Ingrese su contraseña")
+        sPas=input()
+
         BankBase=Bank.Bank(PerBase)
-        BankBase._noCuenta,BankBase._clabe,BankBase._saldo=readTxt(sName)
-        
+        BankBase._noCuenta,BankBase._clabe,BankBase._saldo,PerBase._name,PerBase._pasword,PerBase._app,PerBase._apm,PerBase._mail,PerBase._phone=readTxt(sDoc)
+        BankBase=Bank.Bank(PerBase)
+        #FALTA COPIAR Y PEGAR LAS VARIABLES
+        print(PerBase._name)
+        print(BankBase._noCuenta)
         os.system("pause")
-        op=0#una vez termine la operacion, inicamos la aplicacion
+        
+        if sName==PerBase._name and sPas==PerBase._pasword:
+            print("Inicio exitoso")
+            time.sleep(2)
+            op=0
+        else:
+            print("Datos incorrectos")
+        os.system("pause")
+        
     
     if op == 2:
         #Registrarse
         PerBase=registrar()
-        BankBase=Bank.Bank(PerBase)
+        BankBase=Bank.Bank.newUser(PerBase)
         createTxt()
         
         print("")

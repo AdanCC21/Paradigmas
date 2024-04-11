@@ -12,6 +12,18 @@ class Bank:
         #Numero de cuenta
         self._titular=titular
         
+        #cuenta
+        self._noCuenta= '0'
+        
+        #saldo
+        self._saldo=0
+        
+        #clabe
+        self._clabe= '0'
+
+    def newUser(self,titular):
+        self._titular=titular
+        
         noCuenta4=random.randint(1000,9999)
         noCuenta8=random.randint(1000,9999)
         noCuenta12=random.randint(1000,9999)
