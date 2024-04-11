@@ -98,7 +98,8 @@ def depositar():
             
             if op==1:
                 print("Cargando")
-                BankBase._saldo=BankBase._saldo + dep
+                temp=int(BankBase._saldo) + dep
+                BankBase._saldo=temp + dep
                 time.sleep(2)
                 print("listo")
                 op=0
@@ -129,7 +130,9 @@ def retirar():
             
             if op==1:
                 print("Cargando")
-                BankBase._saldo=BankBase._saldo - ret
+                temp=(BankBase._saldo)
+                BankBase._saldo = temp - ret
+                
                 time.sleep(2)
                 print("listo")
                 op=0
