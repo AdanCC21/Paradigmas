@@ -7,9 +7,10 @@ import Person
 import Bank
 
 def registrar():
-    os.system('cls')
     op=1
+
     while op!= 0:
+        os.system('cls')
         print("Favor de ingresar los datos")
         
         tname=input("Nombre\n")
@@ -22,8 +23,6 @@ def registrar():
         tmonth=input("Mes\n")#metodo de validacion para solo numeros
         tyear=input("Year\n")
 
-        
-        #datos de contacto
         os.system('cls')
         tmail=input("Email\n")
         pas=input("Contrasena\n")
@@ -64,7 +63,7 @@ def MenuLogin():
 def MenuMain():
     print("Bienvenido",PerBase._name)
     print("Que desea realizar hoy?")
-    print("1.-Ver saldo actual\t2.-Transaccion\t3.-Depositar\t4.-Retirar")
+    print("1.-Ver saldo actual\t2.-Transaccion\t3.-Depositar\t4.-Retirar\t0.-Salir")
     op=int(input())
     return op
 
@@ -145,15 +144,6 @@ def retirar():
                 os.system("pause")
 
 #----------------------------Docs--------------------------
-#Ocupo agregar los datos personales de la persona al mismo docs y crear una funcion para pegarla a la PersonaBase
-#ocupo que cada que se acutalizen los datos, se sobreescriban en el txt
-""" 
-    Ocupo mejorar la forma para iniciar sesion, pidiendo nombre, y contraseña, pondria el nombre del txt con el nombre del usuario y al inicio del txt la contrasena
-    y hacer una verificacion de si la contrasena ingresada y registrada son iguales, que copie y pegue los datos
-
-"""
-
-#Falla cuando copio los datos a las variables
 
 def createTxt():
 
@@ -282,8 +272,8 @@ while op!=0: #ciclo de inicio de sesion
 
 
 #--------------------------INICIO---------------------------
-
 op=1
+
 while op!=0:
     os.system("cls")
     op=MenuMain()
@@ -295,3 +285,9 @@ while op!=0:
         depositar()
     elif op==4:
         retirar()
+    elif op==0:
+        print("Seguro que desea salir?\n1.-Salir\t2.Continuar")
+        op=int(input())
+        op-=1
+
+print("Que tenga un buen dia")
