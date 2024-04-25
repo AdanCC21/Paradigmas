@@ -1,8 +1,3 @@
-/*  
-    
-    Version 17/11/2023
-*/
-
 #include <stdio.h>
 #include <string.h>
 #include <conio.h>
