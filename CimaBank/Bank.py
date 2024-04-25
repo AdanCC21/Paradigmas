@@ -1,7 +1,7 @@
 import Person
 import random
 
-class Bank:
+class Bank(Person):
     #datos bancarios
     #titular Sera de la clase Person
     _noCuenta=''

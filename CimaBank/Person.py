@@ -3,6 +3,7 @@ class Person:
     _name=''
     _app=''
     _apm=''
+    
     _day=0
     _month=0
     _year=0
