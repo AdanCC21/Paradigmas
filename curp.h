@@ -8,7 +8,7 @@
 
 //  Generacion de curp y sus validaciones
 
-    /*Datos
+    /*Datos a meter
             
         cadena de la curp donde se retornara la cadena llena
 
@@ -207,7 +207,7 @@ void CU_Auto_Gen (char curp[], int names2, int ap2, int ap1, char name[],char na
     char cad[4];
 
     //  Anio    //
-    itoa(year,cad,10);
+    
     curp[4]=cad[2];
     curp[5]=cad[3];
 
