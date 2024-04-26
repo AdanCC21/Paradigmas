@@ -3,8 +3,9 @@ import random
 import os
 
 class Bank(Person):
-    noCuenta=''
-    clabe=''
+    __noCuenta=''
+    __clabe=''
+    __pas=''
     saldo=0
 
 
@@ -17,26 +18,29 @@ class Bank(Person):
         return Cuenta
 
     def genClabe(self):
-        clabe3=random.randint(100,999)
-        clabe6=random.randint(100,999)
-        clabe17=random.randint(10000000000,99999999999)
-        clabe18=random.randint(1,9)
-        Clabe=str(clabe3)+str(clabe6)+str(clabe17)+str(clabe18)
+        __clabe3=random.randint(100,999)
+        __clabe6=random.randint(100,999)
+        __clabe17=random.randint(10000000000,99999999999)
+        __clabe18=random.randint(1,9)
+        Clabe=str(__clabe3)+str(__clabe6)+str(__clabe17)+str(__clabe18)
         return Clabe
 
     
-    def __init__(self, name, app, apm, day, month, year, mail, numPhone,passwoard,cuenta,clabe,saldo):
+    def __init__(self, name, app, apm, day, month, year, mail, numPhone,passwoard):
         super().__init__(name, app, apm, day, month, year, mail, numPhone)
-        if cuenta==0:
-            self.noCuenta = self.genCuenta()
-        else:
-            self.noCuenta=cuenta
-        if clabe==0:
-            self.clabe = self.genClabe()
-        else:
-            self.clabe=clabe
-        self.saldo = float(saldo)
-        self.pas=passwoard
+        # if cuenta==0:
+        #     self.__noCuenta = self.genCuenta()
+        # else:
+        #     self.__noCuenta=cuenta
+        # if clabe==0:
+        #     self.__clabe = self.genClabe()
+        # else:
+        #     self.__clabe=clabe
+        # self.saldo = float(saldo)
+        self.__pas=passwoard
+    
+    def getPas(self):
+        return self.__pas
     
 
     def viewSaldo (self):
@@ -53,6 +57,20 @@ class Bank(Person):
         op=int(input())
         if op == 2:
             self.saldo+=count
+            print("Depositados",count)
+        elif op ==1:
+            print("Operacion cancelada")
+            os.system("Pause")
+    
+    def retirar(self):
+        print("Depositar")
+        print("Cuanto desea depositar?")
+        count=float(input())
+        
+        print("Usted va a depositar",count,"Esta seguro?\n1.-Cancelar\t2.-Continuar")
+        op=int(input())
+        if op == 2:
+            self.saldo-=count
             print("Depositados",count)
         elif op ==1:
             print("Operacion cancelada")

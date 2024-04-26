@@ -44,9 +44,11 @@ def registro():
     tPass=input("Contraseña\n")
 
     os.system("cls")
-    user= Bank(tName,tApp,tApm,tDay,tMonth,tYear,tMail,tPhone,tPass,0,0,0)
+    user= Bank(tName,tApp,tApm,tDay,tMonth,tYear,tMail,tPhone,tPass)
+    user.__noCuenta=user.genCuenta()
+    user.__clabe=user.genClabe()
     print("Usuario registrado correctamente")
-    print("Su cuenta es",user.noCuenta,"su CLABE es",user.clabe,"Y su saldo actual es",user.saldo,"")
+    print("Su cuenta es",user.__noCuenta,"su CLABE es",user.__clabe,"Y su saldo actual es",user.saldo,"")
     os.system("Pause")
     
     return user
@@ -67,12 +69,14 @@ def createTxt(user):
     #Construimos la ruta
     docName=os.path.join(dirReg,user.name + '.txt')
 
+    tPas=user.getPas()
+
     with open(docName,'w') as doc:
         doc.write(user.name + '\n')
-        doc.write(user.pas + '\n')
+        doc.write(tPas + '\n')
 
-        doc.write(user.noCuenta + '\n')
-        doc.write(user.clabe + '\n')
+        doc.write(user.__noCuenta + '\n')
+        doc.write(user.__clabe + '\n')
         doc.write(str(user.saldo) + '\n')
     
         doc.write(user.app + '\n')
@@ -139,7 +143,7 @@ while bandOp!=True: #ciclo de inicio de sesion
 
             user= readFile(name,pas)
 
-            if user.name == name and user.pas == pas:
+            if user.name == name and user.__pas == pas:
                 print("Inicio exitoso")
                 os.system("PAUSE")
                 ins=True
