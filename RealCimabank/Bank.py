@@ -25,7 +25,6 @@ class Bank(Person):
         Clabe=str(__clabe3)+str(__clabe6)+str(__clabe17)+str(__clabe18)
         return Clabe
 
-    
     def __init__(self, name, app, apm, day, month, year, mail, numPhone,passwoard):
         super().__init__(name, app, apm, day, month, year, mail, numPhone)
         # if cuenta==0:
@@ -42,11 +41,12 @@ class Bank(Person):
     def getPas(self):
         return self.__pas
     
+    def getClabe(self):
+        return self.__clabe
 
     def viewSaldo (self):
         print("Saldo actual:",self.saldo)
         os.system("PAUSE")
-
 
     def depositar(self):
         print("Depositar")
@@ -76,10 +76,17 @@ class Bank(Person):
             print("Operacion cancelada")
             os.system("Pause")
 
-        
+    def transaccion(self):
+        print("Transaccion")
+        print("Depositar por medio de:")
+        print("1.-Clabe\t2.-Numero de cuenta")
+        op=int(input())
+
+        if op == 1:
+            print("Ingrese la clabe")
+
+        if op == 2:
+            print("Ingrese la numero de cuenta")
 
 
-
-    
-        
 

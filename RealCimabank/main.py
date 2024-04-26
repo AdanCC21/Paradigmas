@@ -49,7 +49,8 @@ def createTxt(user):
         os.makedirs(dirReg)
 
     #Construimos la ruta
-    docName=os.path.join(dirReg,user.name + '.txt')
+    temp=user.getClabe()
+    docName=os.path.join(dirReg,temp + '.txt')
 
     tPas=user.getPas()
 
@@ -75,8 +76,10 @@ def readFile(name,pas):
     dirActual=os.path.dirname(os.path.realpath(__file__))
 
     #Moverse a la carpeta registros y juntarla a la ruta de dirActual
+    #Modificar la forma de buscar el usuario, quizas todo en un mismo archivo o hacer una funcion que busque entre toda la carpeta y lea el doc
+    temp=user.getClabe()
     dirReg=os.path.join(dirActual,"reg")
-    dirReg=os.path.join(dirReg,name + '.txt')
+    dirReg=os.path.join(dirReg,temp + '.txt')
 
     if os.path.exists(dirReg):
         with open(dirReg,"r") as doc:
@@ -95,7 +98,11 @@ def readFile(name,pas):
             tMail=doc.readline().strip()
             tPhone=doc.readline().strip()
             
-            tuser = Bank(tName,tApp,tApm,tDay,tMonth,tYear,tMail,tPhone,tPass,tCuenta,tClabe,tSaldo)
+            tuser = Bank(tName,tApp,tApm,tDay,tMonth,tYear,tMail,tPhone,tPass)
+            tuser.__noCuenta=tCuenta
+            tuser.__clabe=tClabe
+            tuser.saldo=tSaldo
+            
             return tuser
 
 """---------Registro----------"""
