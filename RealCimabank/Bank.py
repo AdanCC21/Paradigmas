@@ -63,15 +63,15 @@ class Bank(Person):
             os.system("Pause")
     
     def retirar(self):
-        print("Depositar")
-        print("Cuanto desea depositar?")
+        print("Retirar")
+        print("Cuanto desea retirar?")
         count=float(input())
         
-        print("Usted va a depositar",count,"Esta seguro?\n1.-Cancelar\t2.-Continuar")
+        print("Usted va a retirar",count,"Esta seguro?\n1.-Cancelar\t2.-Continuar")
         op=int(input())
         if op == 2:
             self.saldo-=count
-            print("Depositados",count)
+            print("Retirados",count)
         elif op ==1:
             print("Operacion cancelada")
             os.system("Pause")
