@@ -14,7 +14,7 @@ def clear():
     if system == "Linux":
         os.system("clear")
     elif system == "Windows":
-        clear()
+        os.system("cls")
 
 def pause():
     if system == "Linux":
