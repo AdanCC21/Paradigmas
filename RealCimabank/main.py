@@ -49,25 +49,24 @@ def createTxt(user):
         os.makedirs(dirReg)
 
     #Construimos la ruta
-    temp=user.getClabe()
-    docName=os.path.join(dirReg,temp + '.txt')
+    docName=os.path.join(dirReg,"cuentas.txt")
 
     tPas=user.getPas()
 
-    with open(docName,'w') as doc:
-        doc.write(user.name + '\n')
-        doc.write(tPas + '\n')
+    with open(docName,'a') as doc:
+        doc.write(user.name + " ")
+        doc.write(tPas + " ")
 
-        doc.write(user.__noCuenta + '\n')
-        doc.write(user.__clabe + '\n')
-        doc.write(str(user.saldo) + '\n')
+        doc.write(user.__noCuenta + ' ')
+        doc.write(user.__clabe + ' ')
+        doc.write(str(user.saldo) + ' ')
     
-        doc.write(user.app + '\n')
-        doc.write(user.apm + '\n')
-        doc.write(str(user.day) + '\n')
-        doc.write(str(user.month) + '\n')
-        doc.write(str(user.year) + '\n')
-        doc.write(user.mail + '\n')
+        doc.write(user.app + ' ')
+        doc.write(user.apm + ' ')
+        doc.write(str(user.day) + ' ')
+        doc.write(str(user.month) + ' ')
+        doc.write(str(user.year) + ' ')
+        doc.write(user.mail + ' ')
         doc.write(str(user.numPhone) + '\n')
 
 #Iniciar sesion
@@ -77,27 +76,41 @@ def readFile(name,pas):
 
     #Moverse a la carpeta registros y juntarla a la ruta de dirActual
     #Modificar la forma de buscar el usuario, quizas todo en un mismo archivo o hacer una funcion que busque entre toda la carpeta y lea el doc
-    temp=user.getClabe()
     dirReg=os.path.join(dirActual,"reg")
-    dirReg=os.path.join(dirReg,temp + '.txt')
+    dirReg=os.path.join(dirReg,'cuentas.txt')
 
-    if os.path.exists(dirReg):
-        with open(dirReg,"r") as doc:
-            tName=doc.readline().strip()
-            tPass=doc.readline().strip()
+    bandFound=0
+    with open (dirReg, "r") as doc:
+        for line in doc:
+            tUser=line.strip().split(" ")
+            print(tUser)
+            pause()
+            if tUser[0] == name and tUser[1]==pas:
+                print("Awilson1")
+                pause()
+                bandFound=1
+                break
+
+        if bandFound==0:
+            print("No encontrado")
+            pause()
+            return None
+        elif bandFound==1:
+            tName=tUser[0]
+            tPass=tUser[1]
             
-            tCuenta=doc.readline().strip()
-            tClabe=doc.readline().strip()
-            tSaldo=doc.readline().strip()
+            tCuenta=tUser[2]
+            tClabe=tUser[3]
+            tSaldo=tUser[4]
             
-            tApp=doc.readline().strip()
-            tApm=doc.readline().strip()
-            tDay=doc.readline().strip()
-            tMonth=doc.readline().strip()
-            tYear=doc.readline().strip()
-            tMail=doc.readline().strip()
-            tPhone=doc.readline().strip()
+            tApp=tUser[5]
+            tApm=tUser[6]
+            tDay=tUser[7]
+            tMonth=tUser[8]
+            tYear=tUser[9]
+            tMail=tUser[10]
             
+            tPhone=tUser[11]
             tuser = Bank(tName,tApp,tApm,tDay,tMonth,tYear,tMail,tPhone,tPass)
             tuser.__noCuenta=tCuenta
             tuser.__clabe=tClabe
