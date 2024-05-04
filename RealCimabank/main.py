@@ -8,6 +8,14 @@ import os
 
 system=platform.system()
 
+"""Cosas que faltan
+    1.-Restar dinero cuando haces una transaccion
+    2.-Validar los datos de entrada
+    3.-Quizas una transaccion por medio de clabe
+"""
+
+
+
 """-------------------------------------Funciones--------------------------------------"""
 
 def clear():
@@ -37,6 +45,70 @@ def MenuMain():
     return op
 
 """-------Documentos--------"""
+
+def depTxt(user):
+    dirActual=os.path.dirname(os.path.realpath(__file__))
+    dirReg=os.path.join(dirActual,"reg")
+    dirReg=os.path.join(dirReg,'cuentas.txt')
+
+    with open(dirReg, "r+") as doc:
+        # Leer todas las líneas del archivo
+        lines = doc.readlines()
+        
+        # Buscar la línea que quieres sobrescribir
+        for i, line in enumerate(lines):
+            tUser = line.strip().split(" ")
+            if tUser[0] == user.name and tUser[1] == user.getPas():
+                # Construir la nueva línea con los datos actualizados
+                new_line = " ".join([
+                    user.name, user.getPas(), user.__noCuenta, user.__clabe, str(user.saldo),
+                    user.app, user.apm, str(user.day), str(user.month), str(user.year),
+                    user.mail, str(user.numPhone)
+                ]) + '\n'
+                
+                # Sobrescribir la línea en la lista de líneas
+                lines[i] = new_line
+                break  # Romper el bucle una vez que se haya encontrado la línea
+
+        # Retroceder al principio del archivo y sobrescribir todas las líneas
+        doc.seek(0)
+        doc.writelines(lines)
+
+def traTxt(user,noCuenta,amount):
+    dirActual=os.path.dirname(os.path.realpath(__file__))
+    dirReg=os.path.join(dirActual,"reg")
+    dirReg=os.path.join(dirReg,'cuentas.txt')
+
+    bandFound=0
+    with open(dirReg, "r+") as doc:
+        # Leer todas las líneas del archivo
+        lines = doc.readlines()
+        
+        # Buscar la línea que quieres sobrescribir
+        for i, line in enumerate(lines):
+            tUser = line.strip().split(" ")
+            if noCuenta== tUser[2]:
+                tSaldo=float(tUser[4])+amount
+
+                # Construir la nueva línea con los datos actualizados
+                new_line = " ".join([
+                    tUser[0], tUser[1], tUser[2], tUser[3], str(tSaldo),
+                    tUser[5], tUser[6], tUser[7], tUser[8], tUser[9],
+                    tUser[10], tUser[11]
+                ]) + '\n'
+                
+                # Sobrescribir la línea en la lista de líneas
+                lines[i] = new_line
+                bandFound=1
+                break  # Romper el bucle una vez que se haya encontrado la línea
+        if bandFound==0:
+            print("Cuenta no encontrada")
+
+        # Retroceder al principio del archivo y sobrescribir todas las líneas
+        doc.seek(0)
+        doc.writelines(lines)
+
+
 def createTxt(user):
     #Obtener direccion actual del main
     dirActual=os.path.dirname(os.path.realpath(__file__))
@@ -114,7 +186,7 @@ def readFile(name,pas):
             tuser = Bank(tName,tApp,tApm,tDay,tMonth,tYear,tMail,tPhone,tPass)
             tuser.__noCuenta=tCuenta
             tuser.__clabe=tClabe
-            tuser.saldo=tSaldo
+            tuser.saldo=float(tSaldo)
             
             return tuser
 
@@ -178,7 +250,8 @@ while bandOp!=True: #ciclo de inicio de sesion
 
             user= readFile(name,pas)
 
-            if user.name == name and user.__pas == pas:
+            
+            if user.name == name and user.getPas() == pas:
                 print("Inicio exitoso")
                 pause()
                 ins=True
@@ -202,15 +275,22 @@ while bandSesion !=True:
     
     elif op == 2:
         print("Transaccion")
+        print("A que cuneta")
+        tCuenta=input()
+        
+        print("Cuenato")
+        tAmount=float(input())
+        
+        traTxt(user,tCuenta,tAmount)
     
     elif op == 3:
         user.depositar()
-        createTxt(user)
+        depTxt(user)
         pause()
     
     elif op==4:
         user.retirar()
-        createTxt(user)
+        depTxt(user)
         pause()
     
     elif op == 0:

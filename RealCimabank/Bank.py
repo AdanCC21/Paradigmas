@@ -1,6 +1,23 @@
 from Person import Person
+import platform
+
 import random
+import time
 import os
+
+system=platform.system()
+
+def clear():
+    if system == "Linux":
+        os.system("clear")
+    elif system == "Windows":
+        os.system("cls")
+
+def pause():
+    if system == "Linux":
+        input()
+    elif system == "Windows":
+        os.system("pause")
 
 class Bank(Person):
     __noCuenta=''
@@ -35,7 +52,7 @@ class Bank(Person):
         #     self.__clabe = self.genClabe()
         # else:
         #     self.__clabe=clabe
-        # self.saldo = float(saldo)
+        self.saldo = 0
         self.__pas=passwoard
     
     def getPas(self):
@@ -46,12 +63,12 @@ class Bank(Person):
 
     def viewSaldo (self):
         print("Saldo actual:",self.saldo)
-        os.system("PAUSE")
+        pause()
 
     def depositar(self):
         print("Depositar")
         print("Cuanto desea depositar?")
-        count=float(input())
+        count = float(input())
         
         print("Usted va a depositar",count,"Esta seguro?\n1.-Cancelar\t2.-Continuar")
         op=int(input())
@@ -60,7 +77,7 @@ class Bank(Person):
             print("Depositados",count)
         elif op ==1:
             print("Operacion cancelada")
-            os.system("Pause")
+            
     
     def retirar(self):
         print("Retirar")
@@ -74,7 +91,7 @@ class Bank(Person):
             print("Retirados",count)
         elif op ==1:
             print("Operacion cancelada")
-            os.system("Pause")
+            pause()
 
     def transaccion(self):
         print("Transaccion")
