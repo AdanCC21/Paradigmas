@@ -11,7 +11,7 @@ system=platform.system()
 """Cosas que faltan
     1.-Restar dinero cuando haces una transaccion
     2.-Validar los datos de entrada
-    3.-Quizas una transaccion por medio de clabe
+    3.-Quizas una transaccion por medio de clabe`
 """
 
 
