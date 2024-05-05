@@ -57,6 +57,9 @@ class Bank(Person):
     
     def getPas(self):
         return self.__pas
+
+    def getCount(self):
+        return self.__noCuenta
     
     def getClabe(self):
         return self.__clabe

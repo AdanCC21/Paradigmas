@@ -34,8 +34,8 @@ def pause():
 """-----------MENU----------"""
 def MenuLogin():
     print("\tBienvenido al CimaBanck")
-    print(f'{'Porfavor seleccione una opcion':>35}\n')
-    print("1.-Iniciar sesion\t\t2.-Registrarse")
+    print(f"{'Porfavor seleccione una opcion':>35}\n")
+    print("1.-Iniciar sesion\t\t2.-Registrarse\t\t0.-Salir")
 
 def MenuMain():
     # print("Bienvenido",PerBase._name)
@@ -45,7 +45,7 @@ def MenuMain():
     return op
 
 """-------Documentos--------"""
-
+#Depositar
 def depTxt(user):
     dirActual=os.path.dirname(os.path.realpath(__file__))
     dirReg=os.path.join(dirActual,"reg")
@@ -74,7 +74,10 @@ def depTxt(user):
         doc.seek(0)
         doc.writelines(lines)
 
+#Transferir
 def traTxt(user,noCuenta,amount):
+
+    #obtener direccion actual y construir la ruta
     dirActual=os.path.dirname(os.path.realpath(__file__))
     dirReg=os.path.join(dirActual,"reg")
     dirReg=os.path.join(dirReg,'cuentas.txt')
@@ -84,6 +87,7 @@ def traTxt(user,noCuenta,amount):
         # Leer todas las líneas del archivo
         lines = doc.readlines()
         
+        #Usuario a transferir
         # Buscar la línea que quieres sobrescribir
         for i, line in enumerate(lines):
             tUser = line.strip().split(" ")
@@ -100,15 +104,33 @@ def traTxt(user,noCuenta,amount):
                 # Sobrescribir la línea en la lista de líneas
                 lines[i] = new_line
                 bandFound=1
-                break  # Romper el bucle una vez que se haya encontrado la línea
+                
+                #Usuario base
+                #Reducir saldo y escribirlo
+                usuarioCount=user.__noCuenta
+                for i, line in enumerate(lines):
+                    tUser = line.strip().split(" ")
+                    if usuarioCount== tUser[2]:
+                        #Restar saldo a transferir
+                        tSaldo=user.saldo
+                        new_line = " ".join([
+                            tUser[0], tUser[1], tUser[2], tUser[3], str(tSaldo),
+                            tUser[5], tUser[6], tUser[7], tUser[8], tUser[9],
+                            tUser[10], tUser[11]
+                        ]) + '\n'
+                        
+                        lines[i] = new_line
+                        bandFound=1
+                        break
         if bandFound==0:
             print("Cuenta no encontrada")
+            pause()
 
         # Retroceder al principio del archivo y sobrescribir todas las líneas
         doc.seek(0)
         doc.writelines(lines)
 
-
+#Registrar usuario en el txt
 def createTxt(user):
     #Obtener direccion actual del main
     dirActual=os.path.dirname(os.path.realpath(__file__))
@@ -143,23 +165,12 @@ def createTxt(user):
 
 #Iniciar sesion
 def readFile(name,pas):
-    #Obtener direccion actual del main
-    dirActual=os.path.dirname(os.path.realpath(__file__))
-
-    #Moverse a la carpeta registros y juntarla a la ruta de dirActual
-    #Modificar la forma de buscar el usuario, quizas todo en un mismo archivo o hacer una funcion que busque entre toda la carpeta y lea el doc
-    dirReg=os.path.join(dirActual,"reg")
-    dirReg=os.path.join(dirReg,'cuentas.txt')
-
+    dirReg= folderName()
     bandFound=0
     with open (dirReg, "r") as doc:
         for line in doc:
             tUser=line.strip().split(" ")
-            print(tUser)
-            pause()
             if tUser[0] == name and tUser[1]==pas:
-                print("Awilson1")
-                pause()
                 bandFound=1
                 break
 
@@ -193,35 +204,119 @@ def readFile(name,pas):
 """---------Registro----------"""
 def registro():
     clear()
-    print("Bienvenido al sistema de registro\n","Porfavor ingrese los datos que se pidem")
+    print("Bienvenido al sistema de registro\n","Porfavor ingrese los datos que se piden")
     
-    tName=input("Nombre\n")
+    while True:
+        tName=input("Nombre de Usuario\n")
+        usado=validName(tName)
+        if usado == False:
+            break
+
     tApp=input("Apellido Paterno\n")
     tApm=input("Apellido Materno\n")
 
     clear()
     print("Fecha de nacimiento")
-    tDay=int(input("dia\n"))
-    tMonth=int(input("Mes\n"))
-    tYear=int(input("Año\n"))
+    while True:
+        tDay = input("Ingrese su día de nacimiento (1-31): ")
+        if tDay.isdigit():
+            tDay = int(tDay)
+            if 1 <= tDay <= 31:
+                break
+            else:
+                print("Por favor, ingrese un número entre 1 y 31.")
+        else:
+            print("Por favor, ingrese solo dígitos.")
+
+    
+    tMonth=0
+    while True:
+        print("ingrese el mes")
+        tMonth=int(validNum(tMonth))
+        if tMonth >=1 and tMonth <=12: 
+            break
+        else:
+            print("Ingrese un mes valido")
+        
+            
+    while True:
+        tYear=input("Año\n")
+        if tYear.isdigit():
+            tYear=int(tYear)
+            break
+        else:
+            print("Ingrese un año valido")
+
 
     clear()
     print("Informacion de contacto")
     tMail=input("Correo\n")
-    tPhone=int(input("Numero de celular\n"))
+    
+    while True:
+        tPhone=input("Numero de celular\n")
+        if tPhone.isdigit():
+            tPhone=int(tPhone)
+            break
+        else:
+            print("Ingrese un numero de celular valido")
 
-    print("Escriba su contraseña")
-    tPass=input("Contraseña\n")
+
+    while True:
+        print("Escriba su contraseña")
+        tPass=input("Contraseña\n")
+        print("Confirmar Contraseña")
+        temp=input()
+        if temp == tPass:
+            break
+        else:
+            print("Las contraseñas no concuerdan\n")
+    
 
     clear()
     user= Bank(tName,tApp,tApm,tDay,tMonth,tYear,tMail,tPhone,tPass)
     user.__noCuenta=user.genCuenta()
     user.__clabe=user.genClabe()
     print("Usuario registrado correctamente")
-    print("Su cuenta es",user.__noCuenta,"su CLABE es",user.__clabe,"Y su saldo actual es",user.saldo,"")
+    print("Su cuenta es",user.__noCuenta,"\nSu CLABE es",user.__clabe,"\nY su saldo actual es",user.saldo,"")
     pause()
     
     return user
+
+
+"""---------Validacion----------"""
+def validNum(num):
+    while True:
+        num=input()
+        if num.isdigit():
+            return num
+        else:
+            print("Ingrese un numero valido")
+
+def folderName():
+    dirActual=os.path.dirname(os.path.realpath(__file__))
+    #Moverse a la carpeta registros y juntarla a la ruta de dirActual
+    dirReg=os.path.join(dirActual,"reg")
+    dirReg=os.path.join(dirReg,'cuentas.txt')
+    return dirReg
+
+#Verificacion de nombre
+def validName(name):
+    directorio=folderName()
+    bandFound=False
+    with open(directorio, "r") as doc:
+        for line in doc:
+            tUser=line.strip().split(" ")
+            if tUser[0] == name:
+                bandFound=True
+                break
+    if bandFound==True:
+        print("Nombre ocupado, porfavor intente de nuevo")
+        pause()
+        return True
+    else:
+        return False
+        
+
 
 """-------------------------------------MAIN---------------------------------------"""
 bandOp=False
@@ -235,69 +330,80 @@ while bandOp!=True: #ciclo de inicio de sesion
     MenuLogin()
     op=int(input())
     
-    if op == 1: #Iniciar sesion
+    if op == 1 and ins == False: #Iniciar sesion
         while ins == False:
             print("Para salir ingrese 0")
             print("ingrese su nombre")
             name=input()
-            if name==0:
+            if name=='0':
                 ins=True
-            
-            print("ingrese su contraseña")
-            pas=input()
-            if pas == 0:
-                ins=True
-
-            user= readFile(name,pas)
-
-            
-            if user.name == name and user.getPas() == pas:
-                print("Inicio exitoso")
-                pause()
-                ins=True
-                bandOp=True
             else:
-                print("Datos incorrectos")
-                pause()
+                print("ingrese su contraseña")
+                pas=input()
+                if pas == '0':
+                    ins=True
+                else:
+                    user= readFile(name,pas)
+                    if user != None:
+                        if user.name == name and user.getPas() == pas:
+                            print("Inicio exitoso")
+                            pause()
+                            ins=True
+                            bandOp=True
+                        else:
+                            print("Datos incorrectos")
+                            pause()
+                clear()
+            
     elif op == 2: #Registrar nuevo usuario
         user = registro()
         createTxt(user)
+    elif op == 0:
+        print("Adiooos")
+        break
 
 """Dentro del programa"""
-bandSesion=False
+if bandOp == True:
+    bandSesion=False
 
-while bandSesion !=True:
-    clear()
-    op=MenuMain()
-    # print("1.-Ver saldo actual\t2.-Transaccion\t3.-Depositar\t4.-Retirar\t0.-Salir")
-    if op == 1:
-        user.viewSaldo()
-    
-    elif op == 2:
-        print("Transaccion")
-        print("A que cuneta")
-        tCuenta=input()
+    while bandSesion !=True:
+        clear()
+        op=MenuMain()
+        # print("1.-Ver saldo actual\t2.-Transaccion\t3.-Depositar\t4.-Retirar\t0.-Salir")
+        if op == 1:
+            user.viewSaldo()
         
-        print("Cuenato")
-        tAmount=float(input())
+        elif op == 2:
+            print("Transaccion")
+            print("A que cuneta desea transferir")
+            tCuenta=input()
+            
+            print("Cuanto desea transferir: ")
+            tAmount=float(0)
+            tAmount=float(validNum(tAmount))
+
+
+            if user.saldo < tAmount:
+                print("Lo lamento, no cuenta con el saldo suficiente")
+                pause()
+            else:
+                user.saldo-=tAmount
+                traTxt(user,tCuenta,tAmount)
         
-        traTxt(user,tCuenta,tAmount)
-    
-    elif op == 3:
-        user.depositar()
-        depTxt(user)
-        pause()
-    
-    elif op==4:
-        user.retirar()
-        depTxt(user)
-        pause()
-    
-    elif op == 0:
-        print("Seguro que quieres salir?\n1.-Cancelar\t2.-Continuar")
-        op=int(input())
-        if op == 2:
-            bandSesion=True
+        elif op == 3:
+            user.depositar()
+            depTxt(user)
+            pause()
+        
+        elif op==4:
+            user.retirar()
+            depTxt(user)
+            pause()
+        
+        elif op == 0:
+            print("Seguro que quieres salir?\n1.-Cancelar\t2.-Continuar")
+            op=int(input())
+            if op == 2:
+                bandSesion=True
 
 
-    
