@@ -34,3 +34,4 @@ Biraki, M. D. (2023, 2 mayo). ¿Qué elementos se encuentran en un lenguaje de p
 Portafolio Digital Programación Estructurada - Tema 2. Elementos del lenguaje de programación. (s. f.). https://sites.google.com/site/portafoliodigitalguillermina/tema-2-elementos-del-lenguaje-de-programacion
 
 ¿Cuáles son los elementos básicos de la programación? (s. f.). https://www.avenuglobal.com/noticias/cuales-son-los-elementos-basicos-de-la-programacion
+,
