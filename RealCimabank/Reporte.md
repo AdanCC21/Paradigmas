@@ -12,8 +12,10 @@ Esta practica consiste en el desarrollo de un sistema bancario en python, y apli
 # Desarrollo
 ### Requisitos
 - Lenguaje Python
-- POO
+- Objetos
 - Clases
+- Abstraccion de datos
+- Encapsulamiento
 - Herencia
 - Polimorfismo
 
