@@ -21,7 +21,8 @@ void moveHeadR(struct Nodo **head); // Mover la cabeza hacia la derecha
 void moveHeadL(struct Nodo **head); // Mover la cabeza hacia la izquierda
 void moveHeadD(struct Nodo **head); // Mover la cabeza hacia abajo
 void moveHeadU(struct Nodo **head); // Mover la cabeza hacia arriba
-bool colision(struct Nodo **head, int startx, int limitX, int startY, int limitY); // Detectar colisiones
+bool colision(struct Nodo **head, int startx, int limitX, 
+int startY, int limitY); // Detectar colisiones
 struct img initIMGHead(); // Inicializar imagen de la cabeza de la serpiente
 int movSmooth(double tiempoEstimado, double *time); // Movimiento suavizado
 

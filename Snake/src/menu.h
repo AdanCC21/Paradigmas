@@ -13,9 +13,16 @@ struct img {
 };
 
 // Prototipos de funciones
-void initImage(int screenWidth, int screenHeight); // Inicializa la imagen de fondo del juego
 struct img initGameBackground(); // Inicializa el fondo del juego
-int drawMenu(Music music, float musicTime, struct img fondoM, struct img title, struct img start, struct img exit); // Dibuja el menú principal
+int drawMenu(Music music, float musicTime, struct img fondoM, 
+struct img title, struct img start, struct img exit); // Dibuja el menú principal
+// Inicializacion de imagenes
+struct img initMenu();
+struct img initGameOver();
+struct img initWinner();
+struct img initTitleButton(int screenWidth);
+struct img initStartButton(int screenWidth);
+struct img initExitButton(int screenWidth);
 
 // Funciones de inicialización
 struct img initMenu() // Inicializa el fondo del menú
