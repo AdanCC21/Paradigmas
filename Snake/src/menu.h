@@ -14,8 +14,9 @@ struct img {
 
 // Prototipos de funciones
 struct img initGameBackground(); // Inicializa el fondo del juego
+// Dibuja el menú principal
 int drawMenu(Music music, float musicTime, struct img fondoM, 
-struct img title, struct img start, struct img exit); // Dibuja el menú principal
+struct img title, struct img start, struct img exit); 
 // Inicializacion de imagenes
 struct img initMenu();
 struct img initGameOver();
@@ -119,7 +120,8 @@ struct img initGameBackground()
 }
 
 // Dibuja el menú principal
-int drawMenu(Music music, float musicTime, struct img fondoM, struct img title, struct img start, struct img exit)
+int drawMenu(Music music, float musicTime, struct img fondoM, 
+struct img title, struct img start, struct img exit)
 {
     int op = 0;
     Vector2 mouse = {0.0f, 0.0f};
@@ -130,11 +132,15 @@ int drawMenu(Music music, float musicTime, struct img fondoM, struct img title, 
         DrawTextureEx(fondoM.text, fondoM.pos, 0.0f, 1.0f, WHITE); // Fondo
         DrawTextureEx(title.text, title.pos, 0.0f, 0.5f, WHITE); // Título
 
-        Rectangle iniciarRect = {start.pos.x, start.pos.y, start.Width, start.Height}; // Rectángulo del botón de inicio
-        DrawTextureEx(start.text, start.pos, 0.0f, 1.0f, WHITE); // Botón de inicio
+        Rectangle iniciarRect = {start.pos.x, start.pos.y, 
+        start.Width, start.Height}; // Rectángulo del botón de inicio
+        DrawTextureEx(start.text, start.pos, 
+        0.0f, 1.0f, WHITE); // Botón de inicio
         
-        Rectangle salirRect = {exit.pos.x, exit.pos.y, exit.Width, exit.Height}; // Rectángulo del botón de salida
-        DrawTextureEx(exit.text, exit.pos, 0.0f, 1.0f, WHITE); // Botón de salida
+        Rectangle salirRect = {exit.pos.x, exit.pos.y, 
+        exit.Width, exit.Height}; // Rectángulo del botón de salida
+        // Botón de salida
+        DrawTextureEx(exit.text, exit.pos, 0.0f, 1.0f, WHITE); 
 
         mouse = GetMousePosition();
         if (CheckCollisionPointRec(mouse, iniciarRect))

@@ -11,7 +11,8 @@ struct Manzana
 };
 
 // Prototipos de funciones
-Vector2 spawnfood(struct Nodo **head, int gridx, int gridy); // Genera una nueva posición para la manzana
+// Genera una nueva posición para la manzana
+Vector2 spawnfood(struct Nodo **head, int gridx, int gridy); 
 void drawFood(struct Manzana apple); // Dibuja la manzana en la pantalla
 
 // Funciones
@@ -52,7 +53,8 @@ Vector2 spawnfood(struct Nodo **head, int gridx, int gridy)
         struct Nodo *body = *head; // Cuerpo de la serpiente
         while (body->next != NULL)
         {
-            // Verifica si la posición generada colisiona con el cuerpo de la serpiente
+            // Verifica si la posición generada colisiona con 
+            // el cuerpo de la serpiente
             if (temp.x == body->pos.x && temp.y == body->pos.y)
             {
                 clean = false;

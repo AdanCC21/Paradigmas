@@ -93,10 +93,12 @@ int main()
     float winnerTime=0.0f;
 
     // Sonidos
-    Sound sBom1= LoadSound("assets/sounds/Bom 1.mp3"); // Sonido al comer una manzana
-    Sound sBom4= LoadSound("assets/sounds/Bom 4.mp3"); // Sonido al morir
+    // Sonido al comer una manzana
+    Sound sBom1= LoadSound("assets/sounds/Bom 1.mp3");
+    // Sonido al morir
+    Sound sBom4= LoadSound("assets/sounds/Bom 4.mp3"); 
 
-    // Main game loop------------------------------------------------------------------------------------
+    // Main game loop------------------------------------------------
     while (!WindowShouldClose())
     {   
         BeginDrawing();
@@ -278,7 +280,8 @@ int main()
                         }
                         
                         // Colisiones
-                        if((bandColi=colision(&snake,celstartX,cellimitX,celstartY,cellimitY))==true)
+                        if((bandColi=colision(&snake,celstartX,
+                        cellimitX,celstartY,cellimitY))==true)
                         {
                             game=false;
                             menu=0;
@@ -306,12 +309,14 @@ int main()
                                 if(puntuacion>=240)// Winner Screen
                                 {
                                     andanMusic(winnerMusic,winnerTime);
-                                    DrawTextureEx(fondoW.text,fondoW.pos,0.0f,1.0f,WHITE);
+                                    DrawTextureEx(fondoW.text,
+                                    fondoW.pos,0.0f,1.0f,WHITE);
                                 }
                                 else// Game Over Screen
                                 {
                                     andanMusic(overMusic,overTime);
-                                    DrawTextureEx(fondoO.text,fondoO.pos,0.0f,1.0f,WHITE);
+                                    DrawTextureEx(fondoO.text,
+                                    fondoO.pos,0.0f,1.0f,WHITE);
                                 }
                                     if(IsKeyPressed(KEY_ESCAPE))
                                     {

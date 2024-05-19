@@ -94,7 +94,8 @@ void drawSnakeP(struct Nodo *snake, int direction)
 }
 
 // Detecta colisiones de la serpiente con bordes y consigo misma
-bool colision(struct Nodo **head, int startx, int limitX, int startY, int limitY)
+bool colision(struct Nodo **head, int startx, 
+int limitX, int startY, int limitY)
 {
     struct Nodo *temp = *head;
     temp = temp->next;
@@ -240,7 +241,8 @@ void moveHeadL(struct Nodo **head)
     }
 }
 
-// Verifica si ha pasado cierto tiempo desde la última actualización para un movimiento suavizado
+// Verifica si ha pasado cierto tiempo desde la última 
+// actualización para un movimiento suavizado
 int movSmooth(double tiempoEstimado, double *time)
 {
     double timePass = GetTime();
