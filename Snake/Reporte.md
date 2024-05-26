@@ -16,6 +16,20 @@ En este proyecto crearemos una réplica de un juego clásico, el juego de la ser
 
 ### ¿Que usamos?
 Usamos la librería de **raylib** en **c++** para poder crear el código
+
+### Explicación general
+El lienzo del juego es un tipo de matriz y no, el mapa está dividido en cubitos que cada uno tiene cierto tamaño, cada pedazo de cuerpo de la serpiente mide lo que mide un cubo, al igual que la manzana.
+
+Serpiente
+
+La serpiente se mueve cada cierta cantidad de tiempo un cubo, dependiendo la última tecla presionada irá a la dirección de esta.
+La serpiente cuenta con una posición actual y última posición, es decir, una posición atrás de la actual, esto con el propósito de que cuando la serpiente crezca, el nuevo pedazo de cuerpo se posicione en la última posición, esta última posición siempre será la última de la cola, así no colisionara con el cuerpo y no tenemos problema con la dirección.
+
+Manzana
+
+La manzana spawnea de manera aleatoria en el mapa cada que sea comida, siempre y cuando no esté la serpiente en la posición donde spawnea.
+
+
 ## Clases
 ### Apple.h
 En esta clase definimos las funciones de la manzana, sus texturas, su estructura y su reposicionamiento
