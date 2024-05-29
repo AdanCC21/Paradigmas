@@ -11,6 +11,9 @@ En **Programación Funcional**, tenemos que definir los procedimientos y estable
 
 Por otro lado, para la **Programación Lógica**, proporcionaremos una base de conocimientos. Utilizando esta base de conocimientos, la máquina puede encontrar respuestas a las preguntas planteadas, lo cual es totalmente diferente de la programación funcional.
 
+La diferencia entre *programacion logica y programacion tradicional*, se pueden mostrar en la siguiente ilustracion:
+![alt text](image.png)
+
 #### **¿Qué es Prolog?**
 Prolog o **PRO**gramming en **LOG**ics es un lenguaje de programación lógico y declarativo. Es un ejemplo importante del lenguaje de cuarta generación que admite el paradigma de programación declarativa. 
 
@@ -35,18 +38,17 @@ grandfather(X, Y) :- father(X, Z), parent(Z, Y)
 * Automation System
 * Problem Solving
 
-La diferencia entre *programacion logica y programacion tradicional*, se pueden mostrar en la siguiente ilustracion:
-![alt text](image.png)
+
 
 ---
-#### **[2] Environment Setup.**
+#### **2.- Environment Setup.**
 Pasos para instalar Prolog.
 
 ![alt text](image-1.png)
 ![alt text](image-2.png)
 
 ---
-#### **[3] Hello World.**
+#### **3.- Hello World.**
 Para escribir "Hello World" es necessario tener abierto el programa de Prolog, y escribir el siguiente codigo:
 ```prolog
 write('Hello World').
@@ -63,7 +65,7 @@ Ahora ejecutemos el código. Para ejecutarlo, tenemos que escribir el nombre del
 ```
 
 ---
-#### **[4] Basics.**
+#### **4.- Basics.**
 
 ##### **FACTS:**
 Podemos definir el hecho como una relación explícita entre objetos y las propiedades que estos objetos podrían tener. De modo que los hechos son incondicionalmente verdaderos por naturaleza.
@@ -169,7 +171,7 @@ no
 ```
 
 ---
-#### **[5] Relations.**
+#### **5.- Relations.**
 
 ![alt text](image-3.png)
 
@@ -432,7 +434,7 @@ X = jim ?
 ```
 
 ---
-#### **[6] Data Objects.**
+#### **6.- Data Objects.**
 ![alt text](image-6.png)
 
 ##### **Atoms**
@@ -526,7 +528,7 @@ no
 
 ---
 
-#### **[7] Operators.**
+#### **7.- Operators.**
 
 **Comparación de operadores en Prolog**
 
@@ -599,7 +601,7 @@ yes
 ```
 
 ---
-#### **[8] Loop & Decision Making.**
+#### **8.- Loop & Decision Making.**
 **Loops**
 
 Los operadores aritméticos se utilizan para realizar operaciones aritméticas. Hay algunos tipos diferentes de operadores aritméticos de la siguiente manera.
@@ -693,7 +695,7 @@ yes
 ```
 
 ---
-#### **[9] Conjunciones y disyunciones.**
+#### **9.- Conjunciones y disyunciones.**
 
 **Conjunciones**
 
@@ -741,7 +743,7 @@ yes
 ```
 
 ---
-#### **[10] Lists.**
+#### **10.- Lists.**
 
 **Representación de listas**
 
@@ -759,7 +761,7 @@ Una lista puede estar vacía o no vacía. En el primer caso, la lista se escribe
 ![alt text](image-9.png)
 
 ---
-#### **[11] Recursion and Structures.**
+#### **11.- Recursion and Structures.**
 **Recursion**
 
 La recursividad es una técnica en la que un predicado se utiliza a sí mismo (puede ser con otros predicados) para encontrar el valor de verdad.
@@ -774,9 +776,6 @@ La recursividad es una técnica en la que un predicado se utiliza a sí mismo (p
 Las estructuras son objetos de datos que contienen múltiples componentes.
 
 Por ejemplo, la fecha puede verse como una estructura con tres componentes: día, mes y año. Entonces la fecha 9 de abril de 2020 se puede escribir como: fecha (9 de abril de 2020).
-
-> [!NOTE]Nota:
-> la estructura, a su vez, puede tener otra estructura como componente. Entonces podemos ver las vistas como estructura de árbol y funtores Prolog.
 
 ![alt text](image-11.png)
 
@@ -799,7 +798,7 @@ node(2, node(1,nil,nil), node(6, node(4,node(3,nil,nil), node(5,nil,nil)), node(
 Cada nodo tiene tres campos, datos y dos nodos. Un nodo sin estructura secundaria (nodo hoja) se escribe como nodo (valor, nulo, nulo), el nodo con un solo hijo izquierdo se escribe como nodo (valor, nodo_izquierdo, nulo), el nodo con solo un hijo derecho se escribe como nodo (valor, nulo; nodo_derecho), y el nodo con ambos hijos tiene un nodo (valor, nodo_izquierdo, nodo_derecho).
 
 ---
-#### **[12] Backtracking.**
+#### **12.- Backtracking.**
 El término retroceso es bastante común en el diseño de algoritmos y en diferentes entornos de programación. En Prolog, hasta que llega al destino correcto, intenta retroceder. Cuando se encuentra el destino, se detiene.
 ![alt text](image-13.png)
 
@@ -889,7 +888,7 @@ yes
 ```
 
 ---
-#### **[13] Different and Not.**
+#### **13.- Different and Not.**
 Aquí definiremos dos predicados: diferente y no. El predicado diferente comprobará si dos argumentos dados son iguales o no. Si son iguales, devolverá falso; de lo contrario, devolverá verdadero. El predicado not se usa para negar alguna afirmación, lo que significa que, cuando una afirmación es verdadera, entonces not(declaración) será falsa; de lo contrario, si la afirmación es falsa, entonces not(declaración) será verdadera.
 
 Entonces, el término "diferente" se puede expresar de tres maneras diferentes, como se indica a continuación.
@@ -923,7 +922,7 @@ no
 ```
 
 ---
-#### **[14] Inputs and Outputs.**
+#### **14.-xs Inputs and Outputs.**
 Hasta ahora hemos visto que podemos escribir un programa y la consulta en la consola para ejecutarlo. En algunos casos, imprimimos algo en la consola, que está escrito en nuestro código de prólogo. Así que aquí veremos las tareas de escritura y lectura con más detalle usando prolog. Estas serán las técnicas de manejo de entrada y salida.
 
 **The write() Predicate**
@@ -1037,7 +1036,7 @@ yes
 ```
 
 ---
-#### **[15] Built-In Predicates.**
+#### **15.- Built-In Predicates.**
 ![alt text](image-15.png)
 
 **Decomposing Structures**
@@ -1052,7 +1051,7 @@ Syntax error Y=X<>(maple)
 ![alt text](image-16.png)
 
 ---
-#### **[16] Tree Data Structure (Case Study).**
+#### **16.- Tree Data Structure (Case Study).**
 ![alt text](image-17.png)
 
 * op(500, xfx, ‘is_parent’).
@@ -1131,7 +1130,7 @@ no
 true ?
 
 yes
-| ?- l is_at_same_level v.
+| ?- l is_at_same_level v
 
 no
 | ?-
