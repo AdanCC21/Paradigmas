@@ -16,3 +16,6 @@ Una de las características más notables de SML es su sistema de módulos, que 
 ---
 En esta practica intentaremos compilar los ejercicios del tutorial de SML
 
+Podremos compilarlos en la siguiente pagina
+
+https://saityi.github.io/sml-tour/tour/00-01-setup.html

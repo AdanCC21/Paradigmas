@@ -1159,3 +1159,11 @@ locate(Node) :- path(Node),
                 write(Node),
                 nl.
 ```
+
+---
+
+## Por ultimo
+
+Para poder compilarlo podemos usar la siguiente pagina
+
+https://swish.swi-prolog.org/
