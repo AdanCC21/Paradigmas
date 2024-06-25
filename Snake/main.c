@@ -174,8 +174,8 @@ int main()
                         DrawTextEx(font,"Puntuacion :",textPos,50,1.0,WHITE);
                         
                         // Contador de puntos
-                        itoa(puntuacion,contCad,10);
-                        DrawTextEx(font,contCad,puntsPos,50,1.0,WHITE);
+                        // itoa(puntuacion,contCad,10);
+                        // DrawTextEx(font,contCad,puntsPos,50,1.0,WHITE);
 
                         // Movimiento
                         if((bandTime=movSmooth(0.2,&time))==TRUE)
